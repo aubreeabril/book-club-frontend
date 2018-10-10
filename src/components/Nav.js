@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Menu, Icon } from "antd";
 import Auth from "../Auth/Auth.js";
 
-const auth = new Auth();
-
 class Nav extends React.Component {
   gotTo(route) {
     this.props.history.replace(`/books`);
@@ -27,7 +25,9 @@ class Nav extends React.Component {
           </Link>
         </Menu.Item>
         <Menu.Item onClick={this.login.bind(this)}>
-          <Icon type="team" theme="outlined" />
+          <Link to="/dashboard">
+            <Icon type="team" theme="outlined" />
+          </Link>
         </Menu.Item>
         <Menu.Item>
           <Link to="/">
