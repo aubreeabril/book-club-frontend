@@ -4,8 +4,10 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import Auth from "./Auth/Auth";
 import history from "./history";
+import store from "./redux/store";
 
 const auth = new Auth();
 
@@ -16,9 +18,11 @@ const handleAuthentication = (nextState, replace) => {
 };
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

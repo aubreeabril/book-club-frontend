@@ -1,5 +1,7 @@
 import React from "react";
 import { Form, Input } from "antd";
+import { connect } from "react-redux";
+import { getBooks } from "../redux/actions";
 
 class BookSearch extends React.Component {
   state = {
@@ -14,6 +16,7 @@ class BookSearch extends React.Component {
 
   handleSubmit = value => {
     console.log(value);
+    this.props.getBooks(value);
     this.setState({
       searchValue: ""
     });
@@ -36,4 +39,13 @@ class BookSearch extends React.Component {
   }
 }
 
-export default BookSearch;
+const mapDispatchToProps = dispatch => {
+  return {
+    getBooks: searchValue => dispatch(getBooks(searchValue))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(BookSearch);
