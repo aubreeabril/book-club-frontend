@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Menu, Icon } from "antd";
 import Auth from "../Auth/Auth.js";
 
@@ -18,21 +18,23 @@ class Nav extends React.Component {
 
   render() {
     return (
-      <Menu mode="horizontal" theme="dark">
+      <Menu mode="horizontal">
         <Menu.Item>
-          <Link to="/books">
+          <NavLink to="/books" exact>
             <Icon type="book" theme="outlined" />
-          </Link>
+          </NavLink>
         </Menu.Item>
-        <Menu.Item onClick={this.login.bind(this)}>
-          <Link to="/dashboard">
-            <Icon type="team" theme="outlined" />
-          </Link>
-        </Menu.Item>
+
         <Menu.Item>
-          <Link to="/">
+          <NavLink to="/dashboard" exact>
+            <Icon type="team" theme="outlined" />
+          </NavLink>
+        </Menu.Item>
+
+        <Menu.Item>
+          <NavLink to="/" exact>
             <Icon type="home" them="outlined" />
-          </Link>
+          </NavLink>
         </Menu.Item>
       </Menu>
     );
