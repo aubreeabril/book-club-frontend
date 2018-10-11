@@ -4,10 +4,6 @@ import { Menu, Icon } from "antd";
 import Auth from "../Auth/Auth.js";
 
 class Nav extends React.Component {
-  gotTo(route) {
-    this.props.history.replace(`/books`);
-  }
-
   login() {
     this.props.auth.login();
   }
@@ -17,6 +13,8 @@ class Nav extends React.Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+    console.log(isAuthenticated());
     return (
       <Menu mode="horizontal">
         <Menu.Item>
@@ -36,6 +34,12 @@ class Nav extends React.Component {
             <Icon type="home" them="outlined" />
           </NavLink>
         </Menu.Item>
+        {/* {!isAuthenticated() && ( */}
+        <Menu.Item onClick={this.login.bind(this)}>Login</Menu.Item>
+        {/* )} */}
+        {/* {isAuthenticated() && ( */}
+        <Menu.Item onClick={this.logout.bind(this)}>Logout</Menu.Item>
+        {/* )} */}
       </Menu>
     );
   }

@@ -3,11 +3,14 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import Auth from "./Auth/Auth";
 import history from "./history";
 import store from "./redux/store";
+import Callback from "./Callback/Callback";
+import BooksContainer from "./containers/BooksContainer";
+import DashboardContainer from "./containers/DashboardContainer";
 
 const auth = new Auth();
 
@@ -19,9 +22,21 @@ const handleAuthentication = (nextState, replace) => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Router history={history}>
+      <div>
+        <App auth={auth} />
+        <Route exact path="/books" component={BooksContainer} />
+        <Route exact path="/dashboard" component={DashboardContainer} />
+        <Route
+          exact
+          path="/callback"
+          render={props => {
+            handleAuthentication(props);
+            return <Callback {...props} />;
+          }}
+        />
+      </div>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
