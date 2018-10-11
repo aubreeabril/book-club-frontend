@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, Icon } from "antd";
-import Auth from "../Auth/Auth.js";
 
 class Nav extends React.Component {
   login() {
