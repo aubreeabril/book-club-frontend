@@ -78,3 +78,18 @@ export function createGroup(name) {
       .then(dispatch(getGroups()));
   };
 }
+
+export function createUserGroup(groupId, userId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/user_groups`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        group_id: groupId,
+        user_id: userId
+      })
+    });
+  };
+}

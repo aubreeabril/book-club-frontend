@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeOrGetUser, createGroup } from "../redux/actions";
+import { makeOrGetUser, createGroup, createUserGroup } from "../redux/actions";
 import { Card, Layout, Collapse, Form, Input, Button, Select } from "antd";
 const { Content } = Layout;
 const Panel = Collapse.Panel;
@@ -37,7 +37,11 @@ class UserInfo extends React.Component {
 
   handleSelectSubmit = e => {
     e.preventDefault();
-    console.log(this.state.selectedGroupId);
+    console.log(this.state.selectedGroupId, this.props.currentUser.id);
+    this.props.createUserGroup(
+      this.state.selectedGroupId,
+      this.props.currentUser.id
+    );
   };
 
   render() {
@@ -91,7 +95,9 @@ class UserInfo extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     makeOrGetUser: user => dispatch(makeOrGetUser(user)),
-    createGroup: name => dispatch(createGroup(name))
+    createGroup: name => dispatch(createGroup(name)),
+    createUserGroup: (groupId, userId) =>
+      dispatch(createUserGroup(groupId, userId))
   };
 };
 
