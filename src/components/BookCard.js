@@ -3,16 +3,7 @@ import { Card, Button } from "antd";
 
 const BookCard = ({ book }) => {
   return (
-    <Card
-      style={{ margin: 5 }}
-      // cover={
-      //   <img
-      //     src={book.volumeInfo.imageLinks.thumbnail}
-      //     alt={book.volumeInfo.title}
-      //   />
-      // }
-      title={book.volumeInfo.title}
-    >
+    <Card style={{ margin: 5 }} title={book.volumeInfo.title}>
       {book.volumeInfo.authors.map(a => (
         <p>By: {a}</p>
       ))}
@@ -21,7 +12,7 @@ const BookCard = ({ book }) => {
         alt={book.volumeInfo.title}
         style={{ "text-align": "center" }}
       />
-      <p>{book.volumeInfo.description.split(". ").slice(0, 2)}.</p>
+      <p>{book.volumeInfo.description}.</p>
       <Button id={book.volumeInfo.industryIdentifiers[0].identifier}>
         Save
       </Button>

@@ -1,4 +1,5 @@
 import auth0 from "auth0-js";
+import Auth0Lock from "auth0-lock";
 import history from "../history";
 import { AUTH0_CLIENT_ID } from "../keys";
 
@@ -8,14 +9,37 @@ export default class Auth {
     clientID: AUTH0_CLIENT_ID,
     redirectUri: "http://localhost:3000/callback",
     responseType: "token id_token",
-    scope: "openid"
+    scope: "openid profile"
   });
+
+  // lock = new Auth0Lock("YOUR_CLIENT_ID", "YOUR_AUTH0_DOMAIN");
 
   constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.getProfile = this.getProfile.bind(this);
+  }
+
+  userProfile;
+
+  getAccessToken() {
+    const accessToken = localStorage.getItem("access_token");
+    if (!accessToken) {
+      throw new Error("No Access Token found");
+    }
+    return accessToken;
+  }
+
+  getProfile() {
+    let accessToken = this.getAccessToken();
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        this.userProfile = profile;
+        console.log(this.userProfile);
+      }
+    });
   }
 
   login() {
@@ -52,6 +76,7 @@ export default class Auth {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
+    this.userProfile = null;
     // navigate to the home route
     history.replace("/books");
   }

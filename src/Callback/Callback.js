@@ -1,7 +1,13 @@
 import React, { Component } from "react";
+// import { connect } from "react-redux";
+// import { makeOrGetUser } from '../redux/actions'
 import loading from "./loading.svg";
 
 class Callback extends Component {
+  // componentDidMount() {
+  //   this.props.auth.getProfile();
+  // }
+
   render() {
     const style = {
       position: "absolute",

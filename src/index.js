@@ -26,13 +26,17 @@ ReactDOM.render(
       <div>
         <App auth={auth} />
         <Route exact path="/books" component={BooksContainer} />
-        <Route exact path="/dashboard" component={DashboardContainer} />
+        <Route
+          exact
+          path="/dashboard"
+          render={props => <DashboardContainer auth={auth} {...props} />}
+        />
         <Route
           exact
           path="/callback"
           render={props => {
             handleAuthentication(props);
-            return <Callback {...props} />;
+            return <Callback auth={auth} {...props} />;
           }}
         />
       </div>
