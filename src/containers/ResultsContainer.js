@@ -10,7 +10,9 @@ class ResultsContainer extends React.Component {
     return (
       <Content style={{ margin: "5%" }}>
         {this.props
-          ? this.props.booksFromSearch.map(book => <BookCard book={book} />)
+          ? this.props.booksFromSearch.map(book => (
+              <BookCard currentUser={this.props.currentUser} book={book} />
+            ))
           : null}
       </Content>
     );
@@ -19,7 +21,8 @@ class ResultsContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    booksFromSearch: state.booksFromSearch
+    booksFromSearch: state.booksFromSearch,
+    currentUser: state.currentUser
   };
 };
 

@@ -1,7 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 import { makeOrGetUser, createGroup, createUserGroup } from "../redux/actions";
-import { Card, Layout, Collapse, Form, Input, Button, Select } from "antd";
+import {
+  Card,
+  Layout,
+  Collapse,
+  Form,
+  Input,
+  Button,
+  Select,
+  Row,
+  Col,
+  Avatar,
+  List
+} from "antd";
 const { Content } = Layout;
 const Panel = Collapse.Panel;
 
@@ -46,16 +58,26 @@ class UserInfo extends React.Component {
 
   render() {
     return (
-      <Content>
-        <Card
-          style={{ width: "50%", margin: "1em" }}
-          title={this.props.currentUser.name}
-        >
-          <img
-            alt={this.props.currentUser.name}
-            src={this.props.currentUser.picture}
-          />
-        </Card>
+      <Content style={{ margin: "1em" }}>
+        <Row>
+          <Col span={12}>
+            <Card title={this.props.currentUser.name}>
+              <Avatar src={this.props.currentUser.picture} />
+            </Card>
+          </Col>
+          <Col span={12}>
+            <div style={{ margin: "1em" }}>
+              <h3>My Clubs</h3>
+              {this.props.currentUser.groups ? (
+                <div>
+                  {this.props.currentUser.groups.map(group => (
+                    <p>{group.name}</p>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </Col>
+        </Row>
         <Collapse accordion>
           <Panel header="Join a book club" key="1">
             <Form onSubmit={this.handleSelectSubmit}>
@@ -87,6 +109,20 @@ class UserInfo extends React.Component {
             </Form>
           </Panel>
         </Collapse>
+        <h3>My Saved Books</h3>
+        <List grid={{ gutter: 16, column: 2 }}>
+          {this.props.currentUser.user_books
+            ? this.props.currentUser.user_books.map(book => (
+                <List.Item key={book.isbn}>
+                  <List.Item.Meta
+                    avatar={<Avatar src={book.image} />}
+                    title={book.title}
+                    description={book.author}
+                  />
+                </List.Item>
+              ))
+            : null}
+        </List>
       </Content>
     );
   }

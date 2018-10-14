@@ -93,3 +93,21 @@ export function createUserGroup(groupId, userId) {
     });
   };
 }
+
+export function saveUserBook(userId, book) {
+  return dispatch => {
+    fetch(`http://localhost:3001/user_books`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        isbn: book.volumeInfo.industryIdentifiers[0].identifier,
+        title: book.volumeInfo.title,
+        author: book.volumeInfo.authors[0],
+        image: book.volumeInfo.imageLinks.smallThumbnail
+      })
+    });
+  };
+}
