@@ -13,9 +13,10 @@ class BookCard extends React.Component {
     const { book, currentUser } = this.props;
     return (
       <Card style={{ margin: 5 }} title={book.volumeInfo.title}>
-        {book.volumeInfo.authors.map(a => (
-          <p>By: {a}</p>
-        ))}
+        {book.volumeInfo.authors
+          ? book.volumeInfo.authors.map(a => <p key={a}>By: {a}</p>)
+          : null}
+
         <img
           src={book.volumeInfo.imageLinks.thumbnail}
           alt={book.volumeInfo.title}

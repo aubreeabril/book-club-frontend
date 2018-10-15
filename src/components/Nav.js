@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, Icon } from "antd";
+import { Menu, Icon, Affix } from "antd";
 
 class Nav extends React.Component {
   login() {
@@ -15,34 +15,36 @@ class Nav extends React.Component {
     const { isAuthenticated } = this.props.auth;
     console.log(isAuthenticated());
     return (
-      <Menu mode="horizontal">
-        <Menu.Item>
-          <NavLink to="/" exact>
-            <Icon type="home" them="outlined" />
-          </NavLink>
-        </Menu.Item>
-
-        <Menu.Item>
-          <NavLink to="/books" exact>
-            <Icon type="book" theme="outlined" />
-          </NavLink>
-        </Menu.Item>
-
-        {isAuthenticated() && (
+      <Affix offsetTop={0}>
+        <Menu mode="horizontal">
           <Menu.Item>
-            <NavLink to="/dashboard" exact>
-              <Icon type="team" theme="outlined" />
+            <NavLink to="/" exact>
+              <Icon type="home" them="outlined" />
             </NavLink>
           </Menu.Item>
-        )}
 
-        {!isAuthenticated() && (
-          <Menu.Item onClick={this.login.bind(this)}>Login</Menu.Item>
-        )}
-        {isAuthenticated() && (
-          <Menu.Item onClick={this.logout.bind(this)}>Logout</Menu.Item>
-        )}
-      </Menu>
+          <Menu.Item>
+            <NavLink to="/books" exact>
+              <Icon type="book" theme="outlined" />
+            </NavLink>
+          </Menu.Item>
+
+          {isAuthenticated() && (
+            <Menu.Item>
+              <NavLink to="/dashboard" exact>
+                <Icon type="team" theme="outlined" />
+              </NavLink>
+            </Menu.Item>
+          )}
+
+          {!isAuthenticated() && (
+            <Menu.Item onClick={this.login.bind(this)}>Login</Menu.Item>
+          )}
+          {isAuthenticated() && (
+            <Menu.Item onClick={this.logout.bind(this)}>Logout</Menu.Item>
+          )}
+        </Menu>
+      </Affix>
     );
   }
 }

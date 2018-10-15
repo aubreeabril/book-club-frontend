@@ -1,7 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import { makeOrGetUser, createGroup, createUserGroup } from "../redux/actions";
+import {
+  makeOrGetUser,
+  createGroup,
+  createUserGroup,
+  fetchGroupBooks
+} from "../redux/actions";
 import {
   Card,
   Layout,
@@ -27,6 +33,7 @@ class UserInfo extends React.Component {
 
   componentDidMount() {
     this.props.makeOrGetUser(this.props.user);
+    this.props.fetchGroupBooks();
   }
 
   handleChange = e => {
@@ -54,7 +61,8 @@ class UserInfo extends React.Component {
     console.log(this.state.selectedGroupId, this.props.currentUser.id);
     this.props.createUserGroup(
       this.state.selectedGroupId,
-      this.props.currentUser.id
+      this.props.currentUser.id,
+      this.props.currentUser.auth0sub
     );
   };
 
@@ -73,7 +81,7 @@ class UserInfo extends React.Component {
               {this.props.currentUser.groups ? (
                 <div>
                   {this.props.currentUser.groups.map(group => (
-                    <p>
+                    <p key={group.id}>
                       <Link to={`/club/${group.id}`} key={group.id}>
                         {group.name}
                       </Link>
@@ -115,7 +123,7 @@ class UserInfo extends React.Component {
             </Form>
           </Panel>
         </Collapse>
-        <h3 style={{ "margin-top": "1em" }}>My Saved Books</h3>
+        <h3 style={{ marginTop: "1em" }}>My Saved Books</h3>
         <List>
           {this.props.currentUser.user_books
             ? this.props.currentUser.user_books.map(book => (
@@ -138,19 +146,23 @@ const mapDispatchToProps = dispatch => {
   return {
     makeOrGetUser: user => dispatch(makeOrGetUser(user)),
     createGroup: name => dispatch(createGroup(name)),
-    createUserGroup: (groupId, userId) =>
-      dispatch(createUserGroup(groupId, userId))
+    createUserGroup: (groupId, userId, auth0sub) =>
+      dispatch(createUserGroup(groupId, userId, auth0sub)),
+    fetchGroupBooks: () => dispatch(fetchGroupBooks())
   };
 };
 
 const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
-    groups: state.groups
+    groups: state.groups,
+    groupBooks: state.groupBooks
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserInfo);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(UserInfo)
+);

@@ -6,6 +6,7 @@ export function getBooks(searchValue) {
       `https://www.googleapis.com/books/v1/volumes?q=${searchValue}&key=${GOOGLE_BOOKS_API_KEY}`
     )
       .then(r => r.json())
+      // .then(books => console.log(books));
       .then(books => dispatch(setBooks(books)));
   };
 }
@@ -79,7 +80,7 @@ export function createGroup(name) {
   };
 }
 
-export function createUserGroup(groupId, userId) {
+export function createUserGroup(groupId, userId, auth0sub) {
   return dispatch => {
     fetch(`http://localhost:3001/user_groups`, {
       method: "POST",
@@ -90,7 +91,9 @@ export function createUserGroup(groupId, userId) {
         group_id: groupId,
         user_id: userId
       })
-    });
+    })
+      .then(r => r.json())
+      .then(dispatch(getUsers(auth0sub)));
   };
 }
 
@@ -109,5 +112,71 @@ export function saveUserBook(userId, book) {
         image: book.volumeInfo.imageLinks.smallThumbnail
       })
     });
+  };
+}
+
+export function fetchGroupBooks() {
+  return dispatch => {
+    fetch(`http://localhost:3001/group_books`)
+      .then(r => r.json())
+      .then(groupBooks => dispatch(setGroupBooks(groupBooks)));
+  };
+}
+
+function setGroupBooks(groupBooks) {
+  return {
+    type: "SET_GROUP_BOOKS",
+    groupBooks
+  };
+}
+
+export function addGroupBook(groupId, book) {
+  return dispatch => {
+    fetch(`http://localhost:3001/group_books`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        group_id: groupId,
+        isbn: book.isbn,
+        title: book.title,
+        author: book.author,
+        image: book.image
+      })
+    })
+      .then(r => r.json())
+      .then(groupBook => dispatch(setClubBook(groupId, groupBook.id)));
+  };
+}
+
+function setClubBook(groupId, groupBookId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/groups/${groupId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        current_book: groupBookId
+      })
+    });
+  };
+}
+
+export function setMeeting(groupId, dateTime) {
+  let meetingDate = dateTime.toString();
+  return dispatch => {
+    fetch(`http://localhost:3001/groups/${groupId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        next_meeting: meetingDate
+      })
+    })
+      .then(r => r.json())
+      .then(group => console.log(group));
   };
 }

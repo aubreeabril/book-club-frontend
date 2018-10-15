@@ -1,12 +1,14 @@
 const initialState = {
   booksFromSearch: [],
   currentUser: {},
-  groups: []
+  groups: [],
+  groupBooks: []
 };
 
 const bookReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_BOOKS":
+      console.log(action.books.items);
       return {
         ...state,
         booksFromSearch: action.books.items
@@ -21,6 +23,11 @@ const bookReducer = (state = initialState, action) => {
       return {
         ...state,
         groups: action.groups
+      };
+    case "SET_GROUP_BOOKS":
+      return {
+        ...state,
+        groupBooks: action.groupBooks
       };
     default:
       return state;
