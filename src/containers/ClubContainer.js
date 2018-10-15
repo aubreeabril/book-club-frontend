@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import ClubInfo from "../components/ClubInfo";
 import { Layout } from "antd";
 
-const { Content } = Layout;
-
 class ClubContainer extends React.Component {
   render() {
     const club = this.props.groups.find(
