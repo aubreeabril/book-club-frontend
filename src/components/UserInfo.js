@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { makeOrGetUser, createGroup, createUserGroup } from "../redux/actions";
 import {
   Card,
@@ -20,7 +21,8 @@ const Panel = Collapse.Panel;
 class UserInfo extends React.Component {
   state = {
     nameValue: "",
-    selectedGroupId: null
+    selectedGroupId: null,
+    user: ""
   };
 
   componentDidMount() {
@@ -71,14 +73,18 @@ class UserInfo extends React.Component {
               {this.props.currentUser.groups ? (
                 <div>
                   {this.props.currentUser.groups.map(group => (
-                    <p>{group.name}</p>
+                    <p>
+                      <Link to={`/club/${group.id}`} key={group.id}>
+                        {group.name}
+                      </Link>
+                    </p>
                   ))}
                 </div>
               ) : null}
             </div>
           </Col>
         </Row>
-        <Collapse accordion>
+        <Collapse accordion style={{ margin: "1em" }}>
           <Panel header="Join a book club" key="1">
             <Form onSubmit={this.handleSelectSubmit}>
               <Form.Item>
@@ -109,8 +115,8 @@ class UserInfo extends React.Component {
             </Form>
           </Panel>
         </Collapse>
-        <h3>My Saved Books</h3>
-        <List grid={{ gutter: 16, column: 2 }}>
+        <h3 style={{ "margin-top": "1em" }}>My Saved Books</h3>
+        <List>
           {this.props.currentUser.user_books
             ? this.props.currentUser.user_books.map(book => (
                 <List.Item key={book.isbn}>

@@ -68,6 +68,14 @@ export default class Auth {
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
     // navigate to the home route
+    let accessToken = authResult.accessToken;
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        this.userProfile = profile;
+        console.log(this.userProfile);
+      }
+    });
+
     history.replace("/dashboard");
   }
 

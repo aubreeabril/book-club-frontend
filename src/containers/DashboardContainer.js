@@ -14,11 +14,9 @@ class DashboardContainer extends React.Component {
   render() {
     return (
       <Layout>
-        <Content>
-          {this.props.auth.userProfile ? (
-            <UserInfo user={this.props.auth.userProfile} />
-          ) : null}
-        </Content>
+        {this.props.auth.userProfile ? (
+          <UserInfo user={this.props.auth.userProfile} />
+        ) : null}
       </Layout>
     );
   }

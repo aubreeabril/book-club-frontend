@@ -11,6 +11,7 @@ import store from "./redux/store";
 import Callback from "./Callback/Callback";
 import BooksContainer from "./containers/BooksContainer";
 import DashboardContainer from "./containers/DashboardContainer";
+import ClubContainer from "./containers/ClubContainer";
 
 const auth = new Auth();
 
@@ -38,6 +39,10 @@ ReactDOM.render(
             handleAuthentication(props);
             return <Callback auth={auth} {...props} />;
           }}
+        />
+        <Route
+          path="/club/:id"
+          render={props => <ClubContainer auth={auth} {...props} />}
         />
       </div>
     </Router>
