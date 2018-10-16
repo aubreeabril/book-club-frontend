@@ -4,9 +4,11 @@ import React, { Component } from "react";
 import loading from "./loading.svg";
 
 class Callback extends Component {
-  // componentDidMount() {
-  //   this.props.auth.getProfile();
-  // }
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated()) {
+      this.props.auth.getProfile();
+    }
+  }
 
   render() {
     const style = {

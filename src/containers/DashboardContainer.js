@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getGroups } from "../redux/actions";
+import { getGroups, makeOrGetUser } from "../redux/actions";
 import UserInfo from "../components/UserInfo";
 import { Layout } from "antd";
 

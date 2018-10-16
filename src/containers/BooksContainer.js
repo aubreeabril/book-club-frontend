@@ -9,7 +9,7 @@ class BooksContainer extends React.Component {
   render() {
     return (
       <Content>
-        <Row type="flex" justify="space-around" align="middle">
+        <Row type="flex" justify="space-around">
           <Col span="20">
             <BookSearch />
           </Col>

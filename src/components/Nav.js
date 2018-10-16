@@ -32,7 +32,7 @@ class Nav extends React.Component {
           {isAuthenticated() && (
             <Menu.Item>
               <NavLink to="/dashboard" exact>
-                <Icon type="team" theme="outlined" />
+                <Icon type="user" theme="outlined" />
               </NavLink>
             </Menu.Item>
           )}

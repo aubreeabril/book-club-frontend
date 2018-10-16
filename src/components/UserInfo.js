@@ -6,7 +6,8 @@ import {
   makeOrGetUser,
   createGroup,
   createUserGroup,
-  fetchGroupBooks
+  fetchGroupBooks,
+  deleteUserBook
 } from "../redux/actions";
 import {
   Card,
@@ -58,12 +59,16 @@ class UserInfo extends React.Component {
 
   handleSelectSubmit = e => {
     e.preventDefault();
-    console.log(this.state.selectedGroupId, this.props.currentUser.id);
+
     this.props.createUserGroup(
       this.state.selectedGroupId,
       this.props.currentUser.id,
       this.props.currentUser.auth0sub
     );
+  };
+
+  handleDelete = e => {
+    this.props.deleteUserBook(e.target.id);
   };
 
   render() {
@@ -127,7 +132,14 @@ class UserInfo extends React.Component {
         <List>
           {this.props.currentUser.user_books
             ? this.props.currentUser.user_books.map(book => (
-                <List.Item key={book.isbn}>
+                <List.Item
+                  key={book.isbn}
+                  actions={[
+                    <Button id={book.id} onClick={this.handleDelete}>
+                      Delete
+                    </Button>
+                  ]}
+                >
                   <List.Item.Meta
                     avatar={<Avatar src={book.image} />}
                     title={book.title}
@@ -148,7 +160,8 @@ const mapDispatchToProps = dispatch => {
     createGroup: name => dispatch(createGroup(name)),
     createUserGroup: (groupId, userId, auth0sub) =>
       dispatch(createUserGroup(groupId, userId, auth0sub)),
-    fetchGroupBooks: () => dispatch(fetchGroupBooks())
+    fetchGroupBooks: () => dispatch(fetchGroupBooks()),
+    deleteUserBook: userBookId => dispatch(deleteUserBook(userBookId))
   };
 };
 

@@ -16,12 +16,13 @@ class BookCard extends React.Component {
         {book.volumeInfo.authors
           ? book.volumeInfo.authors.map(a => <p key={a}>By: {a}</p>)
           : null}
-
-        <img
-          src={book.volumeInfo.imageLinks.thumbnail}
-          alt={book.volumeInfo.title}
-        />
-        <p>{book.volumeInfo.description}.</p>
+        <span>
+          <img
+            src={book.volumeInfo.imageLinks.thumbnail}
+            alt={book.volumeInfo.title}
+          />
+          <p>{book.volumeInfo.description}.</p>
+        </span>
         <Button
           id={book.volumeInfo.industryIdentifiers[0].identifier}
           onClick={() => this.handleClick(currentUser.id, book)}

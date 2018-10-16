@@ -24,10 +24,10 @@ class BookSearch extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={e => this.handleSubmit(e)}>
+      <Form onSubmit={e => this.handleSubmit(e)} style={{ marginTop: "20%" }}>
         <Form.Item>
           <Input.Search
-            placeholder="Find a book by title"
+            placeholder="Search for books"
             enterButton
             onChange={this.handleChange}
             onSearch={value => this.handleSubmit(value)}

@@ -180,3 +180,11 @@ export function setMeeting(groupId, dateTime) {
       .then(group => console.log(group));
   };
 }
+
+export function deleteUserBook(userBookId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/user_books/${userBookId}`, {
+      method: "DELETE"
+    });
+  };
+}
