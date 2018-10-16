@@ -16,7 +16,7 @@ class DashboardContainer extends React.Component {
         {this.props.auth.userProfile ? (
           <UserInfo user={this.props.auth.userProfile} />
         ) : (
-          "You're not logged in"
+          this.props.history.push("/")
         )}
       </Layout>
     );

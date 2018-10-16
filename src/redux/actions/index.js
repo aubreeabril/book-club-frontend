@@ -146,7 +146,7 @@ export function addGroupBook(groupId, book) {
       })
     })
       .then(r => r.json())
-      .then(groupBook => dispatch(setClubBook(groupId, groupBook.id)));
+      .then(groupBook => dispatch(fetchGroupBooks()));
   };
 }
 
@@ -175,9 +175,8 @@ export function setMeeting(groupId, dateTime) {
       body: JSON.stringify({
         next_meeting: meetingDate
       })
-    })
-      .then(r => r.json())
-      .then(group => console.log(group));
+    }).then(r => r.json());
+    // .then(group => console.log(group));
   };
 }
 
@@ -186,5 +185,22 @@ export function deleteUserBook(userBookId) {
     fetch(`http://localhost:3001/user_books/${userBookId}`, {
       method: "DELETE"
     });
+  };
+}
+
+export function createVote(userId, groupBookId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/votes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        group_book_id: groupBookId
+      })
+    })
+      .then(r => r.json())
+      .then(json => dispatch(fetchGroupBooks()));
   };
 }

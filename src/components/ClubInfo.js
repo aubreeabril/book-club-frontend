@@ -102,7 +102,7 @@ class ClubInfo extends React.Component {
           )}
         </h3>
         <ClubMembers club={club} {...this.props} />
-        <ClubBooks {...this.props} />
+        <ClubBooks club={club} />
       </Layout.Content>
     );
   }
