@@ -186,11 +186,13 @@ export function setMeeting(groupId, dateTime) {
   };
 }
 
-export function deleteUserBook(userBookId) {
+export function deleteUserBook(userBookId, auth0sub) {
   return dispatch => {
     fetch(`http://localhost:3001/user_books/${userBookId}`, {
       method: "DELETE"
-    });
+    })
+      .then(r => r.json())
+      .then(json => dispatch(getUsers(auth0sub)));
   };
 }
 

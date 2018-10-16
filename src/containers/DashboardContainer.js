@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getGroups, makeOrGetUser } from "../redux/actions";
 import UserInfo from "../components/UserInfo";
 import { Layout } from "antd";
+import UserInfoRefactor from "../components/UserInfoRefactor";
 
 class DashboardContainer extends React.Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class DashboardContainer extends React.Component {
     return (
       <Layout>
         {this.props.auth.userProfile ? (
-          <UserInfo user={this.props.auth.userProfile} />
+          <UserInfoRefactor user={this.props.auth.userProfile} />
         ) : (
           this.props.history.push("/")
         )}
