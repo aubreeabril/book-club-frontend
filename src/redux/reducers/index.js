@@ -2,7 +2,8 @@ const initialState = {
   booksFromSearch: [],
   currentUser: {},
   groups: [],
-  groupBooks: []
+  groupBooks: [],
+  users: []
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -17,7 +18,8 @@ const bookReducer = (state = initialState, action) => {
       let user = action.users.find(user => user.auth0sub === action.auth0sub);
       return {
         ...state,
-        currentUser: user
+        currentUser: user,
+        users: action.users
       };
     case "SET_GROUPS":
       return {

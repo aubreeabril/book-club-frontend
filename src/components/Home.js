@@ -8,7 +8,9 @@ class Home extends React.Component {
   }
 
   render() {
-    this.props.auth.getProfile();
+    if (this.props.auth.isAuthenticated()) {
+      this.props.auth.getProfile();
+    }
     return (
       <div>
         <h1>Home</h1>

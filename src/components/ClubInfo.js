@@ -4,6 +4,8 @@ import { withRouter } from "react-router";
 import moment from "moment";
 import { setMeeting, addGroupBook } from "../redux/actions";
 import { Layout, DatePicker, Form, Select, Button } from "antd";
+import ClubMembers from "./ClubMembers";
+import ClubBooks from "./ClubBooks";
 
 class ClubInfo extends React.Component {
   state = {
@@ -99,6 +101,8 @@ class ClubInfo extends React.Component {
             </Form>
           )}
         </h3>
+        <ClubMembers club={club} {...this.props} />
+        <ClubBooks {...this.props} />
       </Layout.Content>
     );
   }

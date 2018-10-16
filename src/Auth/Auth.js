@@ -53,7 +53,7 @@ export default class Auth {
         this.setSession(authResult);
         history.replace("/");
       } else if (err) {
-        history.replace("/books");
+        history.replace("/");
         console.log(err);
       }
     });
@@ -86,7 +86,7 @@ export default class Auth {
     localStorage.removeItem("expires_at");
     this.userProfile = null;
     // navigate to the home route
-    history.replace("/books");
+    history.replace("/");
   }
 
   isAuthenticated() {
