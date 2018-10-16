@@ -12,6 +12,7 @@ import Callback from "./Callback/Callback";
 import BooksContainer from "./containers/BooksContainer";
 import DashboardContainer from "./containers/DashboardContainer";
 import ClubContainer from "./containers/ClubContainer";
+import Home from "./components/Home";
 
 const auth = new Auth();
 
@@ -26,6 +27,11 @@ ReactDOM.render(
     <Router history={history}>
       <div>
         <App auth={auth} />
+        <Route
+          exact
+          path="/"
+          render={props => <Home auth={auth} {...props} />}
+        />
         <Route exact path="/books" component={BooksContainer} />
         <Route
           exact

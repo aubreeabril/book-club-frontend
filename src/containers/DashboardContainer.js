@@ -6,7 +6,7 @@ import { Layout } from "antd";
 
 class DashboardContainer extends React.Component {
   componentDidMount() {
-    this.props.auth.getProfile();
+    // this.props.auth.getProfile();
     this.props.getGroups();
   }
 
