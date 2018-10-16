@@ -21,28 +21,24 @@ class ClubBooks extends React.Component {
       <div>
         <h2>Vote for a book</h2>
         <List>
-          {this.props.club.group_books.map(book => (
-            <List.Item
-              key={book.id}
-              actions={[
-                <Button id={book.id} onClick={this.handleClick}>
-                  Vote
-                </Button>
-              ]}
-            >
-              <List.Item.Meta
-                avatar={<Avatar src={book.image} />}
-                title={book.title}
-                description={`Votes: ${
-                  this.props.club.votes.filter(v => v.group_book_id === book.id)
-                    ? this.props.club.votes.filter(
-                        v => v.group_book_id === book.id
-                      ).length
-                    : "0"
-                }`}
-              />
-            </List.Item>
-          ))}
+          {this.props.groupBooks
+            .filter(gb => gb.group_id === this.props.club.id)
+            .map(book => (
+              <List.Item
+                key={book.id}
+                actions={[
+                  <Button id={book.id} onClick={this.handleClick}>
+                    Vote
+                  </Button>
+                ]}
+              >
+                <List.Item.Meta
+                  avatar={<Avatar src={book.image} />}
+                  title={book.title}
+                  description={`Votes: ${book.votes ? book.votes.length : "0"}`}
+                />
+              </List.Item>
+            ))}
         </List>
       </div>
     );

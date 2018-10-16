@@ -119,7 +119,10 @@ export function fetchGroupBooks() {
   return dispatch => {
     fetch(`http://localhost:3001/group_books`)
       .then(r => r.json())
-      .then(groupBooks => dispatch(setGroupBooks(groupBooks)));
+      .then(groupBooks => {
+        // console.log(groupBooks);
+        dispatch(setGroupBooks(groupBooks));
+      });
   };
 }
 
@@ -146,7 +149,10 @@ export function addGroupBook(groupId, book) {
       })
     })
       .then(r => r.json())
-      .then(groupBook => dispatch(fetchGroupBooks()));
+      .then(groupBook => {
+        console.log(groupBook);
+        dispatch(fetchGroupBooks());
+      });
   };
 }
 
