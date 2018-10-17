@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createVote } from "../redux/actions";
-import { List, Avatar, Icon, Button } from "antd";
+import { List, Avatar, Button } from "antd";
 
 class ClubBooks extends React.Component {
   state = {
@@ -16,7 +16,6 @@ class ClubBooks extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <h2>Vote for a book</h2>
@@ -27,9 +26,17 @@ class ClubBooks extends React.Component {
               <List.Item
                 key={book.id}
                 actions={[
-                  <Button id={book.id} onClick={this.handleClick}>
-                    Vote
-                  </Button>
+                  this.props.currentUser.votes
+                    .map(v => v.group_book_id)
+                    .includes(book.id) ? (
+                    <Button id={book.id} disabled onClick={this.handleClick}>
+                      Vote
+                    </Button>
+                  ) : (
+                    <Button id={book.id} onClick={this.handleClick}>
+                      Vote
+                    </Button>
+                  )
                 ]}
               >
                 <List.Item.Meta

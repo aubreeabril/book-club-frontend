@@ -5,7 +5,6 @@ import { saveUserBook } from "../redux/actions";
 
 class BookCard extends React.Component {
   handleClick = (userId, book) => {
-    console.log(book.volumeInfo.industryIdentifiers[0].identifier);
     this.props.saveUserBook(userId, book);
   };
 

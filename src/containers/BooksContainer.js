@@ -14,7 +14,7 @@ class BooksContainer extends React.Component {
             <BookSearch />
           </Col>
         </Row>
-        <ResultsContainer />
+        <ResultsContainer history={this.props.history} />
       </Content>
     );
   }

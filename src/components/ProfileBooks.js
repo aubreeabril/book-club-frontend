@@ -13,24 +13,26 @@ class ProfileBooks extends React.Component {
       <div style={{ marginTop: "1em" }}>
         <h3>My Saved Books</h3>
         <List>
-          {this.props.currentUser.user_books
-            ? this.props.currentUser.user_books.map(book => (
-                <List.Item
-                  key={book.isbn}
-                  actions={[
-                    <Button id={book.id} onClick={this.handleDelete}>
-                      Delete
-                    </Button>
-                  ]}
-                >
-                  <List.Item.Meta
-                    avatar={<Avatar src={book.image} />}
-                    title={book.title}
-                    description={book.author}
-                  />
-                </List.Item>
-              ))
-            : null}
+          {this.props.currentUser
+            ? this.props.currentUser.user_books
+              ? this.props.currentUser.user_books.map(book => (
+                  <List.Item
+                    key={book.isbn}
+                    actions={[
+                      <Button id={book.id} onClick={this.handleDelete}>
+                        Delete
+                      </Button>
+                    ]}
+                  >
+                    <List.Item.Meta
+                      avatar={<Avatar src={book.image} />}
+                      title={book.title}
+                      description={book.author}
+                    />
+                  </List.Item>
+                ))
+              : null
+            : this.props.history.push("/")}
         </List>
       </div>
     );

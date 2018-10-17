@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import { makeOrGetUser, fetchGroupBooks } from "../redux/actions";
 import ProfileCard from "./ProfileCard";
 import ProfileClubs from "./ProfileClubs";
@@ -30,7 +29,7 @@ class UserInfoRefactor extends React.Component {
         </Row>
         <ProfileCollapse />
 
-        <ProfileBooks />
+        <ProfileBooks history={this.props.history} />
       </Content>
     );
   }

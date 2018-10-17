@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 class ProfileClubs extends React.Component {
   render() {
-    console.log(this.props);
     return (
       <div style={{ margin: "1em" }}>
         <h3>My Clubs</h3>

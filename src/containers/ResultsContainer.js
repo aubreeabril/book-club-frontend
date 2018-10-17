@@ -11,7 +11,12 @@ class ResultsContainer extends React.Component {
       <Content style={{ margin: "5%" }}>
         {this.props
           ? this.props.booksFromSearch.map(book => (
-              <BookCard currentUser={this.props.currentUser} book={book} />
+              <BookCard
+                currentUser={this.props.currentUser}
+                book={book}
+                history={this.props.history}
+                key={book.volumeInfo.title}
+              />
             ))
           : null}
       </Content>

@@ -49,10 +49,6 @@ class ClubInfo extends React.Component {
 
   render() {
     const { club, currentUser } = this.props;
-    const meetingDate = new Date(club.next_meeting);
-    const meetingDateMoment = moment(meetingDate).format(
-      "dddd, MMM DD, hh:mm a"
-    );
 
     const winningBook = this.props.groupBooks.find(
       b => b.id === parseInt(club.current_book, 10)

@@ -1,13 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Layout, Input, Collapse, Form, Select, Button } from "antd";
+import { Input, Collapse, Form, Select, Button } from "antd";
 import {
   createGroup,
   createUserGroup,
   fetchGroupBooks
 } from "../redux/actions";
 
-const { Content } = Layout;
 const Panel = Collapse.Panel;
 
 class ProfileCollapse extends React.Component {
