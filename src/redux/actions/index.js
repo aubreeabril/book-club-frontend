@@ -212,3 +212,44 @@ export function createVote(userId, groupBookId) {
       .then(json => dispatch(fetchGroupBooks()));
   };
 }
+
+export function createMessage(userId, groupId, text) {
+  return dispatch => {
+    fetch(`http://localhost:3001/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        group_id: groupId,
+        text: text
+      })
+    })
+      .then(r => r.json())
+      .then(message => dispatch(fetchMessages(groupId)));
+  };
+}
+
+export function fetchMessages(groupId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/messages`)
+      .then(r => r.json())
+      .then(messages => dispatch(setChatMessages(messages, groupId)));
+  };
+}
+
+function setChatMessages(messages, groupId) {
+  return {
+    type: "SET_CHAT_MESSAGES",
+    messages,
+    groupId
+  };
+}
+
+export function setCurrentGroup(groupId) {
+  return {
+    type: "SET_CURRENT_GROUP",
+    groupId
+  };
+}

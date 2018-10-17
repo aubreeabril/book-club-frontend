@@ -1,9 +1,9 @@
 import React from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
+import { makeOrGetUser } from "../redux/actions";
 
 class Home extends React.Component {
   componentDidMount() {
-    // debugger;
     // this.props.makeOrGetUser(this.props.auth.userProfile);
   }
 
@@ -19,4 +19,7 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default connect(
+  null,
+  { makeOrGetUser }
+)(Home);

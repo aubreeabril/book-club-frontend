@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getGroups, fetchGroupBooks } from "../redux/actions";
+import { getGroups, fetchGroupBooks, setCurrentGroup } from "../redux/actions";
 import ClubInfo from "../components/ClubInfo";
 import { Layout, Icon, Drawer, Button } from "antd";
 import loading from "../Callback/loading.svg";
@@ -33,6 +33,8 @@ class ClubContainer extends React.Component {
       g => g.id === parseInt(this.props.match.params.id, 10)
     );
 
+    this.props.setCurrentGroup(club.id);
+
     const style = {
       position: "absolute",
       display: "flex",
@@ -54,7 +56,7 @@ class ClubContainer extends React.Component {
               </Button>
               <Drawer
                 title="Chat"
-                placement="bottom"
+                placement="right"
                 visible={this.state.visible}
                 onClose={this.onClose}
               >
@@ -74,11 +76,12 @@ class ClubContainer extends React.Component {
 const mapStateToProps = state => {
   return {
     groups: state.groups,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentGroup: state.currentGroup
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getGroups, fetchGroupBooks }
+  { getGroups, setCurrentGroup, fetchGroupBooks }
 )(ClubContainer);

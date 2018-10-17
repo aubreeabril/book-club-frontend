@@ -3,7 +3,9 @@ const initialState = {
   currentUser: {},
   groups: [],
   groupBooks: [],
-  users: []
+  users: [],
+  chatMessages: [],
+  currentGroup: null
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -30,6 +32,19 @@ const bookReducer = (state = initialState, action) => {
       return {
         ...state,
         groupBooks: action.groupBooks
+      };
+    case "SET_CHAT_MESSAGES":
+      let chatMessages = action.messages.filter(
+        message => message.group_id === action.groupId
+      );
+      return {
+        ...state,
+        chatMessages: chatMessages
+      };
+    case "SET_CURRENT_GROUP":
+      return {
+        ...state,
+        currentGroup: action.groupId
       };
     default:
       return state;
