@@ -1,9 +1,10 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
 import { setMeeting, addGroupBook } from "../redux/actions";
-import { Layout, DatePicker, Form, Select, Button } from "antd";
+import { Layout, DatePicker, Form, Select, Button, Alert } from "antd";
 import ClubMembers from "./ClubMembers";
 import ClubBooks from "./ClubBooks";
 
@@ -36,7 +37,23 @@ class ClubInfo extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addGroupBook(this.props.club.id, this.state.selectedBook);
+
+    if (
+      !this.props.groupBooks
+        .map(gb => gb.isbn)
+        .includes(this.state.selectedBook.isbn)
+    ) {
+      this.props.addGroupBook(this.props.club.id, this.state.selectedBook);
+    } else {
+      ReactDOM.render(
+        <Alert
+          closable
+          type="error"
+          message="This book has already been nominated"
+        />,
+        document.getElementById("for-error")
+      );
+    }
   };
 
   handleOk = value => {
@@ -78,6 +95,7 @@ class ClubInfo extends React.Component {
               <Select
                 placeholder="nominate a book"
                 onChange={this.handleChange}
+                defaultValue="nominate a book"
               >
                 {currentUser.user_books
                   ? currentUser.user_books.map(book => (
@@ -94,6 +112,7 @@ class ClubInfo extends React.Component {
                   : null}
               </Select>
               <Button htmlType="submit">Submit</Button>
+              <div id="for-error" />
             </Form>
           )}
         </h3>

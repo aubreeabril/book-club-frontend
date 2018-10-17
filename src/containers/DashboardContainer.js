@@ -14,10 +14,12 @@ class DashboardContainer extends React.Component {
     return (
       <Layout>
         {this.props.auth.userProfile ? (
-          <UserInfoRefactor
-            user={this.props.auth.userProfile}
-            history={this.props.history}
-          />
+          <React.Fragment>
+            <UserInfoRefactor
+              user={this.props.auth.userProfile}
+              history={this.props.history}
+            />
+          </React.Fragment>
         ) : (
           this.props.history.push("/")
         )}

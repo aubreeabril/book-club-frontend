@@ -1,23 +1,71 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getGroups } from "../redux/actions";
+import { getGroups, fetchGroupBooks } from "../redux/actions";
 import ClubInfo from "../components/ClubInfo";
-import { Layout } from "antd";
+import { Layout, Icon, Drawer, Button } from "antd";
+import loading from "../Callback/loading.svg";
+import Chat from "../components/Chat";
 
 class ClubContainer extends React.Component {
-  componentDidMount() {}
+  state = {
+    visible: false
+  };
+
+  componentDidMount() {
+    this.props.getGroups();
+    // this.props.fetchGroupBooks();
+  }
+
+  onClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
+  handleClick = () => {
+    this.setState({
+      visible: true
+    });
+  };
 
   render() {
-    this.props.getGroups();
-
     const club = this.props.groups.find(
       g => g.id === parseInt(this.props.match.params.id, 10)
     );
 
+    const style = {
+      position: "absolute",
+      display: "flex",
+      justifyContent: "center",
+      top: "50%",
+      left: 0,
+      right: 0,
+      backgroundColor: "white"
+    };
+
     return (
       <Layout style={{ padding: "1em" }}>
-        <h1>{club.name}</h1>
-        <ClubInfo club={club} currentUser={this.props.currentUser} />
+        {club ? (
+          <React.Fragment>
+            <h1>
+              {club.name}
+              <Button onClick={this.handleClick} style={{ float: "right" }}>
+                Chat
+              </Button>
+              <Drawer
+                title="Chat"
+                placement="bottom"
+                visible={this.state.visible}
+                onClose={this.onClose}
+              >
+                <Chat />
+              </Drawer>
+            </h1>
+            <ClubInfo club={club} currentUser={this.props.currentUser} />
+          </React.Fragment>
+        ) : (
+          <Icon type="loading" theme="outlined" style={style} />
+        )}
       </Layout>
     );
   }
@@ -32,5 +80,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getGroups }
+  { getGroups, fetchGroupBooks }
 )(ClubContainer);

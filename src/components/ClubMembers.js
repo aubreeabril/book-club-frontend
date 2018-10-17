@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar } from "antd";
+import { List, Avatar, Col } from "antd";
 
 const ClubMembers = ({ club, currentUser }) => {
   return (
