@@ -19,8 +19,10 @@ class ClubContainer extends React.Component {
     const club = this.props.groups.find(
       g => g.id === parseInt(this.props.match.params.id, 10)
     );
-
-    this.props.fetchMessages(club.id);
+    if (club) {
+      this.props.fetchMessages(club.id);
+    }
+    // this.props.fetchMessages(club.id);
     // this.props.fetchGroupBooks();
   }
 

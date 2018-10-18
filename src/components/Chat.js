@@ -3,12 +3,35 @@ import { connect } from "react-redux";
 import { Input, Button, List, Avatar } from "antd";
 import { createMessage, fetchMessages } from "../redux/actions";
 
-class Chat extends React.Component {
-  state = {
-    inputValue: ""
-  };
+let myInterval;
 
-  componentDidMount() {}
+class Chat extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: ""
+    };
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+
+    // myInterval = setInterval(() => {
+    //   this.props.fetchMessages();
+    // }, 10000);
+  }
+
+  // componentWillUnmount() {
+  //   clearInterval(myInterval);
+  // }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
 
   handleChange = event => {
     this.setState({
@@ -16,7 +39,7 @@ class Chat extends React.Component {
     });
   };
 
-  handleClick = () => {
+  handleEnter = e => {
     this.props.createMessage(
       this.props.currentUser.id,
       this.props.club.id,
@@ -30,9 +53,9 @@ class Chat extends React.Component {
 
   render() {
     this.props.fetchMessages(this.props.club.id);
+
     return (
       <div>
-        <h3>Chat</h3>
         {this.props.chatMessages.length > 1 ? (
           <React.Fragment>
             <List style={{ elementOverflow: "hidden" }}>
@@ -70,8 +93,9 @@ class Chat extends React.Component {
               placeholder="type something"
               value={this.state.inputValue}
               onChange={this.handleChange}
+              onPressEnter={this.handleEnter}
             />
-            <Button onClick={this.handleClick}>Send</Button>
+            <div ref={el => (this.messagesEnd = el)} />
           </React.Fragment>
         ) : (
           "Loading ..."

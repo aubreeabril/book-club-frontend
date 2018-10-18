@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { makeOrGetUser, getGroups } from "../redux/actions";
+import { Input } from "antd";
 
 class Home extends React.Component {
   componentDidMount() {
