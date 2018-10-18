@@ -1,16 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Input, Button, List, Avatar } from "antd";
-import { createMessage } from "../redux/actions";
+import { createMessage, fetchMessages } from "../redux/actions";
 
 class Chat extends React.Component {
   state = {
     inputValue: ""
   };
 
-  componentDidMount() {
-    // this.props.fetchMessages();
-  }
+  componentDidMount() {}
 
   handleChange = event => {
     this.setState({
@@ -31,6 +29,7 @@ class Chat extends React.Component {
   };
 
   render() {
+    this.props.fetchMessages(this.props.club.id);
     return (
       <div>
         <h3>Chat</h3>
@@ -93,5 +92,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { createMessage }
+  { createMessage, fetchMessages }
 )(Chat);

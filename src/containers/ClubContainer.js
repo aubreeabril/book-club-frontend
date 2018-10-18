@@ -73,7 +73,7 @@ class ClubContainer extends React.Component {
             <ClubInfo club={club} currentUser={this.props.currentUser} />
           </React.Fragment>
         ) : (
-          <Icon type="loading" theme="outlined" style={style} />
+          this.props.history.push("/dashboard")
         )}
       </Layout>
     );
