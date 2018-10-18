@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getGroups, fetchGroupBooks, setCurrentGroup } from "../redux/actions";
+import {
+  fetchGroupBooks,
+  setCurrentGroup,
+  fetchMessages
+} from "../redux/actions";
 import ClubInfo from "../components/ClubInfo";
 import { Layout, Icon, Drawer, Button } from "antd";
 import loading from "../Callback/loading.svg";
@@ -12,7 +16,11 @@ class ClubContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getGroups();
+    const club = this.props.groups.find(
+      g => g.id === parseInt(this.props.match.params.id, 10)
+    );
+
+    this.props.fetchMessages(club.id);
     // this.props.fetchGroupBooks();
   }
 
@@ -32,8 +40,7 @@ class ClubContainer extends React.Component {
     const club = this.props.groups.find(
       g => g.id === parseInt(this.props.match.params.id, 10)
     );
-
-    this.props.setCurrentGroup(club.id);
+    // this.props.fetchMessages(club.id);
 
     const style = {
       position: "absolute",
@@ -60,7 +67,7 @@ class ClubContainer extends React.Component {
                 visible={this.state.visible}
                 onClose={this.onClose}
               >
-                <Chat />
+                <Chat club={club} chatMessages={this.props.chatMessages} />
               </Drawer>
             </h1>
             <ClubInfo club={club} currentUser={this.props.currentUser} />
@@ -77,11 +84,12 @@ const mapStateToProps = state => {
   return {
     groups: state.groups,
     currentUser: state.currentUser,
-    currentGroup: state.currentGroup
+    currentGroup: state.currentGroup,
+    chatMessages: state.chatMessages
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getGroups, setCurrentGroup, fetchGroupBooks }
+  { setCurrentGroup, fetchGroupBooks, fetchMessages }
 )(ClubContainer);

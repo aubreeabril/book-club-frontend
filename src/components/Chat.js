@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Input, Button, List } from "antd";
-import { createMessage, fetchMessages } from "../redux/actions";
+import { Input, Button, List, Avatar } from "antd";
+import { createMessage } from "../redux/actions";
 
 class Chat extends React.Component {
   state = {
@@ -9,11 +9,10 @@ class Chat extends React.Component {
   };
 
   componentDidMount() {
-    this.props.fetchMessages();
+    // this.props.fetchMessages();
   }
 
   handleChange = event => {
-    console.log(event.target.value);
     this.setState({
       inputValue: event.target.value
     });
@@ -22,9 +21,13 @@ class Chat extends React.Component {
   handleClick = () => {
     this.props.createMessage(
       this.props.currentUser.id,
-      this.props.currentGroup,
+      this.props.club.id,
       this.state.inputValue
     );
+
+    this.setState({
+      inputValue: ""
+    });
   };
 
   render() {
@@ -33,15 +36,42 @@ class Chat extends React.Component {
         <h3>Chat</h3>
         {this.props.chatMessages.length > 1 ? (
           <React.Fragment>
-            <List>
+            <List style={{ elementOverflow: "hidden" }}>
               {this.props.chatMessages
                 ? this.props.chatMessages.map(message => (
-                    <List.Item>{message.text}</List.Item>
+                    <React.Fragment>
+                      <List.Item
+                        key={message.id}
+                        style={
+                          message.user_id === this.props.currentUser.id
+                            ? { float: "right" }
+                            : null
+                        }
+                      >
+                        <List.Item.Meta
+                          avatar={
+                            <Avatar
+                              src={
+                                this.props.users.find(
+                                  u => u.id === message.user_id
+                                ).picture
+                              }
+                            />
+                          }
+                          description={message.text}
+                        />
+                      </List.Item>
+                      <div style={{ clear: "both" }} />
+                    </React.Fragment>
                   ))
                 : null}
             </List>
 
-            <Input placeholder="type something" onChange={this.handleChange} />
+            <Input
+              placeholder="type something"
+              value={this.state.inputValue}
+              onChange={this.handleChange}
+            />
             <Button onClick={this.handleClick}>Send</Button>
           </React.Fragment>
         ) : (
@@ -56,11 +86,12 @@ const mapStateToProps = state => {
   return {
     chatMessages: state.chatMessages,
     currentGroup: state.currentGroup,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    users: state.users
   };
 };
 
 export default connect(
   mapStateToProps,
-  { createMessage, fetchMessages }
+  { createMessage }
 )(Chat);

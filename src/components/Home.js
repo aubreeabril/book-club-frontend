@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeOrGetUser } from "../redux/actions";
+import { makeOrGetUser, getGroups } from "../redux/actions";
 
 class Home extends React.Component {
   componentDidMount() {
+    this.props.getGroups();
     // this.props.makeOrGetUser(this.props.auth.userProfile);
   }
 
@@ -21,5 +22,5 @@ class Home extends React.Component {
 
 export default connect(
   null,
-  { makeOrGetUser }
+  { makeOrGetUser, getGroups }
 )(Home);

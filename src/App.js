@@ -3,7 +3,7 @@ import Nav from "./components/Nav";
 
 class App extends Component {
   componentDidMount() {
-    this.props.auth.getProfile();
+    // this.props.auth.getProfile();
   }
 
   render() {
