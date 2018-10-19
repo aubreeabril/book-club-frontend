@@ -11,10 +11,12 @@ const initialState = {
 const bookReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_BOOKS":
-      console.log(action.books.items);
+      let valid = action.books.items.filter(
+        book => !!book.volumeInfo.industryIdentifiers
+      );
       return {
         ...state,
-        booksFromSearch: action.books.items
+        booksFromSearch: valid
       };
     case "SET_USERS":
       let user = action.users.find(user => user.auth0sub === action.auth0sub);
@@ -45,6 +47,11 @@ const bookReducer = (state = initialState, action) => {
       return {
         ...state,
         currentGroup: action.groupId
+      };
+    case "CLEAR_SEARCHED_BOOKS":
+      return {
+        ...state,
+        booksFromSearch: []
       };
     default:
       return state;

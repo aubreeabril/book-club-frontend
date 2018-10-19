@@ -38,10 +38,20 @@ class Nav extends React.Component {
           )}
 
           {!isAuthenticated() && (
-            <Menu.Item onClick={this.login.bind(this)}>Login</Menu.Item>
+            <Menu.Item
+              onClick={this.login.bind(this)}
+              style={{ float: "right" }}
+            >
+              Login
+            </Menu.Item>
           )}
           {isAuthenticated() && (
-            <Menu.Item onClick={this.logout.bind(this)}>Logout</Menu.Item>
+            <Menu.Item
+              onClick={this.logout.bind(this)}
+              style={{ float: "right" }}
+            >
+              Logout
+            </Menu.Item>
           )}
         </Menu>
       </Affix>

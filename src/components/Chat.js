@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Input, Button, List, Avatar } from "antd";
+import { Input, List, Avatar } from "antd";
 import { createMessage, fetchMessages } from "../redux/actions";
+// import actionCable from "actioncable";
 
 let myInterval;
 
@@ -16,13 +17,17 @@ class Chat extends React.Component {
   componentDidMount() {
     this.scrollToBottom();
 
-    // myInterval = setInterval(() => {
-    //   this.props.fetchMessages();
-    // }, 10000);
+    myInterval = setInterval(() => {
+      this.props.fetchMessages();
+    }, 5000);
   }
 
-  // componentWillUnmount() {
-  //   clearInterval(myInterval);
+  componentWillUnmount() {
+    clearInterval(myInterval);
+  }
+
+  // componentWillMount() {
+  //   this.createSocket();
   // }
 
   componentDidUpdate() {

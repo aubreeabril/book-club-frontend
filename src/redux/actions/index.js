@@ -111,7 +111,15 @@ export function saveUserBook(userId, book) {
         author: book.volumeInfo.authors[0],
         image: book.volumeInfo.imageLinks.smallThumbnail
       })
-    });
+    })
+      .then(r => r.json())
+      .then(json => dispatch(clearSearchedBooks()));
+  };
+}
+
+function clearSearchedBooks() {
+  return {
+    type: "CLEAR_SEARCHED_BOOKS"
   };
 }
 
@@ -156,7 +164,7 @@ export function addGroupBook(groupId, book) {
   };
 }
 
-function setClubBook(groupId, groupBookId) {
+export function setClubBook(groupId, groupBookId) {
   return dispatch => {
     fetch(`http://localhost:3001/groups/${groupId}`, {
       method: "PATCH",
@@ -170,7 +178,7 @@ function setClubBook(groupId, groupBookId) {
   };
 }
 
-export function setMeeting(groupId, dateTime) {
+export function setMeeting(groupId, dateTime, voteBy) {
   let meetingDate = dateTime.toString();
   return dispatch => {
     fetch(`http://localhost:3001/groups/${groupId}`, {
@@ -179,7 +187,8 @@ export function setMeeting(groupId, dateTime) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        next_meeting: meetingDate
+        next_meeting: meetingDate,
+        vote_by: voteBy
       })
     }).then(r => r.json());
     // .then(group => console.log(group));

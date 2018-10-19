@@ -3,24 +3,63 @@ import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
-import { setMeeting, addGroupBook } from "../redux/actions";
+import { setMeeting, addGroupBook, setClubBook } from "../redux/actions";
 import { Layout, DatePicker, Form, Select, Button, Alert } from "antd";
 import ClubMembers from "./ClubMembers";
 import ClubBooks from "./ClubBooks";
+// import { ActionCable } from "react-actioncable-provider";
+// import Cable from "./Cable";
 
 class ClubInfo extends React.Component {
   state = {
     meeting: null,
-    selectedBook: null
+    selectedBook: null,
+    vote_by: null
   };
 
   componentDidMount() {
+    // handling meeting date and vote by date
     if (this.props.club.next_meeting) {
       this.setState({
         meeting: moment(this.props.club.next_meeting).format(
           "dddd, MMM DD, hh:mm a"
-        )
+        ),
+        vote_by: moment(this.props.club.vote_by).format("dddd, MMM DD, hh:mm a")
       });
+    }
+    // is there a winning book?
+    const winningBook = this.props.groupBooks.find(
+      b => b.id === parseInt(this.props.club.current_book, 10)
+    );
+    this.setState({
+      selectedBook: winningBook
+    });
+
+    // if there's no winning book && the vote_by date has passed, find the winning book
+
+    if (!winningBook && moment() > moment(this.props.club.vote_by)) {
+      let votes = this.props.club.votes.map(vote => vote.group_book_id);
+
+      let count = votes.reduce((tallyObj, vote) => {
+        tallyObj[vote] = (tallyObj[vote] || 0) + 1;
+        return tallyObj;
+      }, {});
+
+      let numOfWinningVotes = Math.max(...Object.values(count));
+      let bookId = Object.keys(count, numOfWinningVotes).find(
+        key => count[key] === numOfWinningVotes
+      );
+
+      let newWinningBook = this.props.groupBooks.find(
+        gb => gb.id === parseInt(bookId)
+      );
+
+      console.log(newWinningBook);
+
+      // this.setState({
+      //   selectedBook: this.props.newWinningBook
+      // });
+      this.props.setClubBook(this.props.club.id, newWinningBook.id);
     }
   }
 
@@ -58,10 +97,15 @@ class ClubInfo extends React.Component {
 
   handleOk = value => {
     let meeting = value;
+    let voteBy = moment(value).subtract(1, "months");
+    console.log(meeting, voteBy);
     this.setState({
-      meeting: moment(value).format("dddd, MMM DD, hh:mm a")
+      meeting: moment(value).format("dddd, MMM DD, hh:mm a"),
+      vote_by: moment(value)
+        .subtract(1, "months")
+        .format("dddd, MM DD, hh:mm a")
     });
-    this.props.setMeeting(this.props.club.id, meeting);
+    this.props.setMeeting(this.props.club.id, meeting, voteBy);
   };
 
   render() {
@@ -70,6 +114,11 @@ class ClubInfo extends React.Component {
     const winningBook = this.props.groupBooks.find(
       b => b.id === parseInt(club.current_book, 10)
     );
+
+    // if (!winningBook) {
+    //   console.log(this.props.club);
+    //
+    // }
 
     return (
       <Layout.Content>
@@ -86,6 +135,9 @@ class ClubInfo extends React.Component {
             />
           )}
         </h3>
+        {!club.current_book ? (
+          <p>Vote or nominate a book by {this.state.vote_by}!</p>
+        ) : null}
         <h3>
           Current Book:{" "}
           {!!club.current_book && this.props.groupBooks ? (
@@ -132,6 +184,6 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { setMeeting, addGroupBook }
+    { setMeeting, addGroupBook, setClubBook }
   )(ClubInfo)
 );

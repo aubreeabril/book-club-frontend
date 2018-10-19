@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { makeOrGetUser, getGroups } from "../redux/actions";
-import { Input } from "antd";
+import books from "../images/books.jpg";
 
 class Home extends React.Component {
   componentDidMount() {
@@ -14,8 +14,8 @@ class Home extends React.Component {
       this.props.auth.getProfile();
     }
     return (
-      <div>
-        <h1>Home</h1>
+      <div span={12} style={{ textAlign: "center", marginTop: "15em" }}>
+        <h1>Book Club</h1>
       </div>
     );
   }

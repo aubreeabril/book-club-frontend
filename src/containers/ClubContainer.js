@@ -6,7 +6,7 @@ import {
   fetchMessages
 } from "../redux/actions";
 import ClubInfo from "../components/ClubInfo";
-import { Layout, Icon, Drawer, Button } from "antd";
+import { Layout, Drawer, Button } from "antd";
 import loading from "../Callback/loading.svg";
 import Chat from "../components/Chat";
 
