@@ -5,7 +5,8 @@ const initialState = {
   groupBooks: [],
   users: [],
   chatMessages: [],
-  currentGroup: null
+  currentGroup: null,
+  bestsellers: []
 };
 
 const bookReducer = (state = initialState, action) => {
@@ -53,6 +54,12 @@ const bookReducer = (state = initialState, action) => {
         ...state,
         booksFromSearch: []
       };
+    case "SET_BESTSELLERS":
+      return {
+        ...state,
+        bestsellers: action.books
+      };
+
     default:
       return state;
   }

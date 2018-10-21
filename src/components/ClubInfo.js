@@ -12,7 +12,6 @@ import {
   Button,
   Alert,
   List,
-  Card,
   Avatar
 } from "antd";
 import ClubMembers from "./ClubMembers";
@@ -46,30 +45,31 @@ class ClubInfo extends React.Component {
     });
 
     // if there's no winning book && the vote_by date has passed, find the winning book
+    if (!winningBook && this.props.club.vote_by) {
+      if (!winningBook && moment() > moment(this.props.club.vote_by)) {
+        let votes = this.props.club.votes.map(vote => vote.group_book_id);
 
-    if (!winningBook && moment() > moment(this.props.club.vote_by)) {
-      let votes = this.props.club.votes.map(vote => vote.group_book_id);
+        let count = votes.reduce((tallyObj, vote) => {
+          tallyObj[vote] = (tallyObj[vote] || 0) + 1;
+          return tallyObj;
+        }, {});
 
-      let count = votes.reduce((tallyObj, vote) => {
-        tallyObj[vote] = (tallyObj[vote] || 0) + 1;
-        return tallyObj;
-      }, {});
+        let numOfWinningVotes = Math.max(...Object.values(count));
+        let bookId = Object.keys(count, numOfWinningVotes).find(
+          key => count[key] === numOfWinningVotes
+        );
 
-      let numOfWinningVotes = Math.max(...Object.values(count));
-      let bookId = Object.keys(count, numOfWinningVotes).find(
-        key => count[key] === numOfWinningVotes
-      );
+        let newWinningBook = this.props.groupBooks.find(
+          gb => gb.id === parseInt(bookId)
+        );
 
-      let newWinningBook = this.props.groupBooks.find(
-        gb => gb.id === parseInt(bookId)
-      );
+        // console.log(newWinningBook);
 
-      console.log(newWinningBook);
-
-      // this.setState({
-      //   selectedBook: this.props.newWinningBook
-      // });
-      this.props.setClubBook(this.props.club.id, newWinningBook.id);
+        // this.setState({
+        //   selectedBook: this.props.newWinningBook
+        // });
+        this.props.setClubBook(this.props.club.id, newWinningBook.id);
+      }
     }
   }
 
@@ -156,11 +156,19 @@ class ClubInfo extends React.Component {
             ) : null}
           </List.Item>
           <List.Item
-            actions={[
-              <a href={winningBook.link} target="_blank">
-                Buy
-              </a>
-            ]}
+            actions={
+              winningBook
+                ? [
+                    <a
+                      href={winningBook.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Buy
+                    </a>
+                  ]
+                : null
+            }
           >
             {!!club.current_book && this.props.groupBooks ? (
               <List.Item.Meta

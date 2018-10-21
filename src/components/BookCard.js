@@ -33,7 +33,11 @@ class BookCard extends React.Component {
             Save
           </Button>
           <Button>
-            <a href={book.volumeInfo.infoLink} target="_blank">
+            <a
+              href={book.volumeInfo.infoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Buy
             </a>
           </Button>

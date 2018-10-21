@@ -1,4 +1,4 @@
-import { GOOGLE_BOOKS_API_KEY } from "../../keys";
+import { GOOGLE_BOOKS_API_KEY, NY_TIMES_API_KEY } from "../../keys";
 
 export function getBooks(searchValue) {
   return dispatch => {
@@ -264,5 +264,23 @@ export function setCurrentGroup(groupId) {
   return {
     type: "SET_CURRENT_GROUP",
     groupId
+  };
+}
+
+export function fetchBestsellers(list) {
+  return dispatch => {
+    fetch(
+      `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${NY_TIMES_API_KEY}&list=${list}`
+    )
+      .then(r => r.json())
+      .then(books => dispatch(setBestsellers(list, books.results)));
+  };
+}
+
+function setBestsellers(list, books) {
+  return {
+    type: "SET_BESTSELLERS",
+    list,
+    books
   };
 }

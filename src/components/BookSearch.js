@@ -15,8 +15,16 @@ class BookSearch extends React.Component {
   };
 
   handleSubmit = value => {
-    console.log(value);
     this.props.getBooks(value);
+    this.setState({
+      searchValue: ""
+    });
+  };
+
+  handleEnter = e => {
+    e.preventDefault();
+    console.log(e.target.value);
+    this.props.getBooks(e.target.value);
     this.setState({
       searchValue: ""
     });
@@ -32,8 +40,14 @@ class BookSearch extends React.Component {
             onChange={this.handleChange}
             onSearch={value => this.handleSubmit(value)}
             value={this.state.searchValue}
+            onPressEnter={this.handleEnter}
           />
         </Form.Item>
+        <img
+          style={{ textAlign: "center" }}
+          src="https://books.google.com/googlebooks/images/poweredby.png"
+          alt="Powered by Google"
+        />
       </Form>
     );
   }
