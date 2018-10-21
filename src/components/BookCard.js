@@ -25,12 +25,19 @@ class BookCard extends React.Component {
 
           <p>{book.volumeInfo.description}.</p>
         </span>
-        <Button
-          id={book.volumeInfo.industryIdentifiers[0].identifier}
-          onClick={() => this.handleClick(currentUser.id, book)}
-        >
-          Save
-        </Button>
+        <Button.Group>
+          <Button
+            id={book.volumeInfo.industryIdentifiers[0].identifier}
+            onClick={() => this.handleClick(currentUser.id, book)}
+          >
+            Save
+          </Button>
+          <Button>
+            <a href={book.volumeInfo.infoLink} target="_blank">
+              Buy
+            </a>
+          </Button>
+        </Button.Group>
       </Card>
     );
   }

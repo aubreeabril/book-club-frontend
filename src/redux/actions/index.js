@@ -93,7 +93,7 @@ export function createUserGroup(groupId, userId, auth0sub) {
       })
     })
       .then(r => r.json())
-      .then(dispatch(getUsers(auth0sub)));
+      .then(json => dispatch(getUsers(auth0sub)));
   };
 }
 
@@ -109,7 +109,9 @@ export function saveUserBook(userId, book) {
         isbn: book.volumeInfo.industryIdentifiers[0].identifier,
         title: book.volumeInfo.title,
         author: book.volumeInfo.authors[0],
-        image: book.volumeInfo.imageLinks.smallThumbnail
+        image: book.volumeInfo.imageLinks.smallThumbnail,
+        link: book.volumeInfo.infoLink,
+        description: book.volumeInfo.description
       })
     })
       .then(r => r.json())
@@ -153,7 +155,9 @@ export function addGroupBook(groupId, book) {
         isbn: book.isbn,
         title: book.title,
         author: book.author,
-        image: book.image
+        image: book.image,
+        link: book.link,
+        description: book.description
       })
     })
       .then(r => r.json())

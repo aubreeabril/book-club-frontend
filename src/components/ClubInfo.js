@@ -4,7 +4,17 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
 import { setMeeting, addGroupBook, setClubBook } from "../redux/actions";
-import { Layout, DatePicker, Form, Select, Button, Alert } from "antd";
+import {
+  Layout,
+  DatePicker,
+  Form,
+  Select,
+  Button,
+  Alert,
+  List,
+  Card,
+  Avatar
+} from "antd";
 import ClubMembers from "./ClubMembers";
 import ClubBooks from "./ClubBooks";
 // import { ActionCable } from "react-actioncable-provider";
@@ -69,7 +79,9 @@ class ClubInfo extends React.Component {
         title: event.props.title,
         author: event.props.author,
         isbn: event.props.isbn,
-        image: event.props.image
+        image: event.props.image,
+        description: event.props.description,
+        link: event.props.link
       }
     });
   };
@@ -122,52 +134,69 @@ class ClubInfo extends React.Component {
 
     return (
       <Layout.Content>
-        <h3>
-          Next Meeting:{" "}
-          {!!this.state.meeting ? (
-            this.state.meeting
-          ) : (
-            <DatePicker
-              placeholder="pick date and time"
-              showTime={{ format: "hh:mm" }}
-              format="YYYY-MM-DD hh:mm"
-              onOk={this.handleOk}
+        <List>
+          <List.Item>
+            <List.Item.Meta
+              title="Next Meeting"
+              description={
+                !!this.state.meeting ? (
+                  this.state.meeting
+                ) : (
+                  <DatePicker
+                    placeholder="pick date and time"
+                    showTime={{ format: "hh:mm" }}
+                    format="YYYY-MM-DD hh:mm"
+                    onOk={this.handleOk}
+                  />
+                )
+              }
             />
-          )}
-        </h3>
-        {!club.current_book ? (
-          <p>Vote or nominate a book by {this.state.vote_by}!</p>
-        ) : null}
-        <h3>
-          Current Book:{" "}
-          {!!club.current_book && this.props.groupBooks ? (
-            winningBook.title
-          ) : (
-            <Form onSubmit={this.handleSubmit}>
-              <Select
-                placeholder="nominate a book"
-                onChange={this.handleChange}
-                defaultValue="nominate a book"
-              >
-                {currentUser.user_books
-                  ? currentUser.user_books.map(book => (
-                      <Select.Option
-                        title={book.title}
-                        author={book.author}
-                        image={book.image}
-                        isbn={book.isbn}
-                        key={book.isbn}
-                      >
-                        {book.title}
-                      </Select.Option>
-                    ))
-                  : null}
-              </Select>
-              <Button htmlType="submit">Submit</Button>
-              <div id="for-error" />
-            </Form>
-          )}
-        </h3>
+            {!club.current_book && this.state.vote_by ? (
+              <p>Vote or nominate a book by {this.state.vote_by}!</p>
+            ) : null}
+          </List.Item>
+          <List.Item
+            actions={[
+              <a href={winningBook.link} target="_blank">
+                Buy
+              </a>
+            ]}
+          >
+            {!!club.current_book && this.props.groupBooks ? (
+              <List.Item.Meta
+                title={!!club.current_book ? winningBook.title : "Current Book"}
+                avatar={<Avatar src={winningBook.image} />}
+              />
+            ) : (
+              <Form onSubmit={this.handleSubmit}>
+                <Select
+                  placeholder="nominate a book"
+                  onChange={this.handleChange}
+                  defaultValue="nominate a book"
+                >
+                  {currentUser.user_books
+                    ? currentUser.user_books.map(book => (
+                        <Select.Option
+                          title={book.title}
+                          author={book.author}
+                          image={book.image}
+                          description={book.description}
+                          link={book.link}
+                          isbn={book.isbn}
+                          key={book.isbn}
+                        >
+                          {book.title}
+                        </Select.Option>
+                      ))
+                    : null}
+                </Select>
+                <Button htmlType="submit">Submit</Button>
+                <div id="for-error" />
+              </Form>
+            )}
+          </List.Item>
+        </List>
+
         <ClubMembers club={club} {...this.props} />
         <ClubBooks club={club} />
       </Layout.Content>
