@@ -3,7 +3,12 @@ import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import moment from "moment";
-import { setMeeting, addGroupBook, setClubBook } from "../redux/actions";
+import {
+  setMeeting,
+  addGroupBook,
+  setClubBook,
+  clearBookClubDate
+} from "../redux/actions";
 import {
   Layout,
   DatePicker,
@@ -28,7 +33,13 @@ class ClubInfo extends React.Component {
 
   componentDidMount() {
     // handling meeting date and vote by date
-    if (this.props.club.next_meeting) {
+    let now = moment();
+    if (now > moment(this.props.club.next_meeting)) {
+      this.props.clearBookClubDate(this.props.club.id);
+    } else if (
+      this.props.club.next_meeting
+      // moment() > moment(this.props.club.next_meeting)
+    ) {
       this.setState({
         meeting: moment(this.props.club.next_meeting).format(
           "dddd, MMM DD, hh:mm a"
@@ -120,6 +131,10 @@ class ClubInfo extends React.Component {
     this.props.setMeeting(this.props.club.id, meeting, voteBy);
   };
 
+  disabledDate(current) {
+    return current && current < moment().endOf("day");
+  }
+
   render() {
     const { club, currentUser } = this.props;
 
@@ -134,7 +149,7 @@ class ClubInfo extends React.Component {
 
     return (
       <Layout.Content>
-        <List>
+        <List itemLayout="vertical">
           <List.Item>
             <List.Item.Meta
               title="Next Meeting"
@@ -143,6 +158,7 @@ class ClubInfo extends React.Component {
                   this.state.meeting
                 ) : (
                   <DatePicker
+                    disabledDate={this.disabledDate}
                     placeholder="pick date and time"
                     showTime={{ format: "hh:mm" }}
                     format="YYYY-MM-DD hh:mm"
@@ -206,7 +222,7 @@ class ClubInfo extends React.Component {
         </List>
 
         <ClubMembers club={club} {...this.props} />
-        <ClubBooks club={club} />
+        {!this.props.club.current_book ? <ClubBooks club={club} /> : null}
       </Layout.Content>
     );
   }
@@ -221,6 +237,6 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { setMeeting, addGroupBook, setClubBook }
+    { setMeeting, addGroupBook, setClubBook, clearBookClubDate }
   )(ClubInfo)
 );

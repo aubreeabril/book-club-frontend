@@ -30,7 +30,11 @@ class ProfileCollapse extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createGroup(this.state.nameValue);
+    this.props.createGroup(
+      this.state.nameValue,
+      this.props.currentUser.id,
+      this.props.currentUser.auth0sub
+    );
     this.setState({
       nameValue: ""
     });

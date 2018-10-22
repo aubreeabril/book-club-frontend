@@ -1,20 +1,51 @@
 import React from "react";
 import { connect } from "react-redux";
-import { List, Button } from "antd";
-import { fetchBestsellers } from "../redux/actions";
+import { List, Button, Modal } from "antd";
+import {
+  fetchBestsellers,
+  fetchBestsellerFromGoogle,
+  clearBestsellers
+} from "../redux/actions";
 
-class HardcoverFiction extends React.Component {
+class BestsellerList extends React.Component {
+  state = {
+    books: this.props.bestsellers
+  };
+
   componentDidMount() {
     this.props.fetchBestsellers(this.props.list);
   }
 
+  handleClick = e => {
+    this.showConfirm();
+    // console.log(this.props.currentUser);
+    this.props.fetchBestsellerFromGoogle(
+      this.props.currentUser.id,
+      e.target.id
+    );
+  };
+
+  showConfirm = () => {
+    Modal.confirm({ title: "This book has been saved" });
+  };
+
+  // componentDidUpdate() {
+  //   this.props.fetchBestsellers(this.props.list);
+  // }
+
   makeList = () => {
     return (
       <List itemLayout="vertical">
-        {this.props.bestsellers.map(book => (
+        {this.state.books.map(book => (
           <List.Item
+            key={book.book_details[0].primary_isbn13}
             actions={[
-              <Button id={book.book_details[0].primary_isbn13}>Save</Button>
+              <Button
+                onClick={this.handleClick}
+                id={book.book_details[0].primary_isbn13}
+              >
+                Save
+              </Button>
             ]}
           >
             <List.Item.Meta
@@ -39,11 +70,12 @@ class HardcoverFiction extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    bestsellers: state.bestsellers
+    bestsellers: state.bestsellers,
+    currentUser: state.currentUser
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchBestsellers }
-)(HardcoverFiction);
+  { fetchBestsellers, fetchBestsellerFromGoogle, clearBestsellers }
+)(BestsellerList);

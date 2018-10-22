@@ -26,6 +26,7 @@ class Nav extends React.Component {
           <Menu.Item>
             <NavLink to="/books" exact>
               <Icon type="book" theme="outlined" />
+              Books
             </NavLink>
           </Menu.Item>
 
@@ -33,6 +34,7 @@ class Nav extends React.Component {
             <Menu.Item>
               <NavLink to="/dashboard" exact>
                 <Icon type="user" theme="outlined" />
+                Profile
               </NavLink>
             </Menu.Item>
           )}

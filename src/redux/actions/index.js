@@ -64,7 +64,7 @@ function setGroups(groups) {
   return { type: "SET_GROUPS", groups };
 }
 
-export function createGroup(name) {
+export function createGroup(name, userId, auth0sub) {
   return dispatch => {
     fetch(`http://localhost:3001/groups`, {
       method: "POST",
@@ -76,7 +76,10 @@ export function createGroup(name) {
       })
     })
       .then(r => r.json())
-      .then(dispatch(getGroups()));
+      .then(json => {
+        dispatch(createUserGroup(json.id, userId, auth0sub));
+        dispatch(getGroups());
+      });
   };
 }
 
@@ -282,5 +285,40 @@ function setBestsellers(list, books) {
     type: "SET_BESTSELLERS",
     list,
     books
+  };
+}
+
+export function fetchBestsellerFromGoogle(userId, isbn) {
+  return dispatch => {
+    fetch(
+      `https://www.googleapis.com/books/v1/volumes?q=${isbn}&key=${GOOGLE_BOOKS_API_KEY}`
+    )
+      .then(r => r.json())
+      .then(books => {
+        console.log(books.items[0]);
+        dispatch(saveUserBook(userId, books.items[0]));
+      });
+  };
+}
+
+export function clearBestsellers() {
+  return {
+    type: "CLEAR_BESTSELLERS"
+  };
+}
+
+export function clearBookClubDate(groupId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/groups/${groupId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        next_meeting: null,
+        vote_by: null,
+        current_book: null
+      })
+    });
   };
 }

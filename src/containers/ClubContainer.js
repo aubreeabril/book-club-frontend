@@ -7,7 +7,6 @@ import {
 } from "../redux/actions";
 import ClubInfo from "../components/ClubInfo";
 import { Layout, Drawer, Button } from "antd";
-import loading from "../Callback/loading.svg";
 import Chat from "../components/Chat";
 
 class ClubContainer extends React.Component {
@@ -43,16 +42,6 @@ class ClubContainer extends React.Component {
       g => g.id === parseInt(this.props.match.params.id, 10)
     );
     // this.props.fetchMessages(club.id);
-
-    const style = {
-      position: "absolute",
-      display: "flex",
-      justifyContent: "center",
-      top: "50%",
-      left: 0,
-      right: 0,
-      backgroundColor: "white"
-    };
 
     return (
       <Layout style={{ padding: "1em" }}>

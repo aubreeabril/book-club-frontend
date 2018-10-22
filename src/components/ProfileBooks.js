@@ -19,9 +19,14 @@ class ProfileBooks extends React.Component {
                   <List.Item
                     key={book.isbn}
                     actions={[
-                      <Button id={book.id} onClick={this.handleDelete}>
-                        Delete
-                      </Button>
+                      <React.Fragment>
+                        <Button id={book.id} onClick={this.handleDelete}>
+                          Delete
+                        </Button>
+                        <a href={book.link} target="_blank">
+                          <Button>Buy</Button>
+                        </a>
+                      </React.Fragment>
                     ]}
                   >
                     <List.Item.Meta

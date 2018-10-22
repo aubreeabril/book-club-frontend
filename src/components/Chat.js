@@ -15,15 +15,15 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    this.scrollToBottom();
-
-    myInterval = setInterval(() => {
-      this.props.fetchMessages();
-    }, 5000);
+    // this.scrollToBottom();
+    //
+    // myInterval = setInterval(() => {
+    //   this.props.fetchMessages();
+    // }, 5000);
   }
 
   componentWillUnmount() {
-    clearInterval(myInterval);
+    // clearInterval(myInterval);
   }
 
   // componentWillMount() {
@@ -31,7 +31,7 @@ class Chat extends React.Component {
   // }
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
   scrollToBottom = () => {

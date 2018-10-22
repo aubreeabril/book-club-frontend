@@ -59,7 +59,11 @@ const bookReducer = (state = initialState, action) => {
         ...state,
         bestsellers: action.books
       };
-
+    case "CLEAR_BESTSELLERS":
+      return {
+        ...state,
+        bestsellers: []
+      };
     default:
       return state;
   }
