@@ -6,7 +6,8 @@ import ProfileCard from "./ProfileCard";
 import ProfileClubs from "./ProfileClubs";
 import ProfileCollapse from "./ProfileCollapse";
 import ProfileBooks from "./ProfileBooks";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row } from "antd";
+import loading from "../Callback/loading.svg";
 
 const Content = Layout;
 
@@ -18,19 +19,27 @@ class UserInfoRefactor extends React.Component {
 
   render() {
     return (
-      <Content style={{ margin: "1em" }}>
-        <Row>
-          <Col span={12}>
-            <ProfileCard />
-          </Col>
-          <Col span={12}>
-            <ProfileClubs />
-          </Col>
-        </Row>
-        <ProfileCollapse />
+      <React.Fragment>
+        {this.props.currentUser ? (
+          <Content style={{ margin: "1em" }}>
+            <Row>
+              {/* <Col span={12}> */}
+              <ProfileCard history={this.props.history} />
+              {/* </Col> */}
+              {/* <Col span={12}> */}
+            </Row>
+            <Row>
+              <ProfileClubs />
+              {/* </Col> */}
+            </Row>
+            <ProfileCollapse />
 
-        <ProfileBooks history={this.props.history} />
-      </Content>
+            <ProfileBooks history={this.props.history} />
+          </Content>
+        ) : (
+          <img src={loading} alt="loading" />
+        )}
+      </React.Fragment>
     );
   }
 }

@@ -322,3 +322,13 @@ export function clearBookClubDate(groupId) {
     });
   };
 }
+
+export function clearGroupVotes(groupId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/groups/${groupId}/votes`, {
+      method: "DELETE"
+    })
+      .then(r => r.json())
+      .then(json => console.log(json));
+  };
+}

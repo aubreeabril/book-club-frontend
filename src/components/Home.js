@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { makeOrGetUser, getGroups } from "../redux/actions";
-import { Icon, Timeline } from "antd";
+import { Icon } from "antd";
+
+const textStyle = {
+  textAlign: "center",
+  color: "rgb(117, 1, 117)"
+};
 
 class Home extends React.Component {
   componentDidMount() {
@@ -24,14 +29,19 @@ class Home extends React.Component {
         }}
       >
         <span>
-          <h1 style={{ textAlign: "center", paddingTop: "7em" }}>
-            <Icon type="team" theme="outlined" color="blue" /> Make or join a
-            club
+          <h1
+            style={{
+              textAlign: "center",
+              color: "rgb(117, 1, 117)",
+              paddingTop: "7em"
+            }}
+          >
+            <Icon type="team" theme="outlined" /> Make or join a club
           </h1>
-          <h1 style={{ textAlign: "center" }}>
+          <h1 style={textStyle}>
             <Icon type="calendar" theme="outlined" color="green" /> Set a date
           </h1>
-          <h1 style={{ textAlign: "center" }}>
+          <h1 style={textStyle}>
             <Icon type="book" theme="outlined" color="green" /> Vote on books
           </h1>
         </span>

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { makeOrGetUser } from "../redux/actions";
 import { Layout, Row, Col, Tabs } from "antd";
@@ -16,8 +16,12 @@ class BooksContainer extends React.Component {
   }
 
   render() {
+    let height = window.innerHeight;
+
     return (
-      <Content>
+      <Content
+        style={{ minHeight: height, backgroundColor: "rgb(238, 240, 243)" }}
+      >
         {this.props.auth.userProfile ? (
           <Tabs defaultActiveKey="2">
             <Tabs.TabPane tab="Browse bestsellers" key="1">

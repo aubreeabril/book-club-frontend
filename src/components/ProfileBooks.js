@@ -23,7 +23,11 @@ class ProfileBooks extends React.Component {
                         <Button id={book.id} onClick={this.handleDelete}>
                           Delete
                         </Button>
-                        <a href={book.link} target="_blank">
+                        <a
+                          href={book.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <Button>Buy</Button>
                         </a>
                       </React.Fragment>

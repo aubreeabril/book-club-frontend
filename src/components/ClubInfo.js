@@ -7,7 +7,8 @@ import {
   setMeeting,
   addGroupBook,
   setClubBook,
-  clearBookClubDate
+  clearBookClubDate,
+  clearGroupVotes
 } from "../redux/actions";
 import {
   Layout,
@@ -74,12 +75,11 @@ class ClubInfo extends React.Component {
           gb => gb.id === parseInt(bookId)
         );
 
-        // console.log(newWinningBook);
-
         // this.setState({
         //   selectedBook: this.props.newWinningBook
         // });
         this.props.setClubBook(this.props.club.id, newWinningBook.id);
+        this.props.clearGroupVotes(this.props.club.id);
       }
     }
   }
@@ -101,7 +101,7 @@ class ClubInfo extends React.Component {
     e.preventDefault();
 
     if (
-      !this.props.groupBooks
+      !this.props.club.group_books
         .map(gb => gb.isbn)
         .includes(this.state.selectedBook.isbn)
     ) {
@@ -132,7 +132,7 @@ class ClubInfo extends React.Component {
   };
 
   disabledDate(current) {
-    return current && current < moment().endOf("day");
+    return current && current < moment();
   }
 
   render() {
@@ -222,7 +222,9 @@ class ClubInfo extends React.Component {
         </List>
 
         <ClubMembers club={club} {...this.props} />
-        {!this.props.club.current_book ? <ClubBooks club={club} /> : null}
+        {/* {!this.props.club.current_book ?  */}
+        <ClubBooks club={club} />
+        {/* : null} */}
       </Layout.Content>
     );
   }
@@ -237,6 +239,12 @@ const mapStateToProps = state => {
 export default withRouter(
   connect(
     mapStateToProps,
-    { setMeeting, addGroupBook, setClubBook, clearBookClubDate }
+    {
+      setMeeting,
+      addGroupBook,
+      setClubBook,
+      clearBookClubDate,
+      clearGroupVotes
+    }
   )(ClubInfo)
 );

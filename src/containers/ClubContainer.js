@@ -42,9 +42,16 @@ class ClubContainer extends React.Component {
       g => g.id === parseInt(this.props.match.params.id, 10)
     );
     // this.props.fetchMessages(club.id);
+    const height = window.innerHeight;
 
     return (
-      <Layout style={{ padding: "1em" }}>
+      <Layout
+        style={{
+          padding: "1em",
+          minHeight: height,
+          backgroundColor: "rgb(238, 240, 243)"
+        }}
+      >
         {club ? (
           <React.Fragment>
             <h1>

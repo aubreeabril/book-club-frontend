@@ -1,13 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Card, Avatar } from "antd";
+import { Avatar } from "antd";
 
 class ProfileCard extends React.Component {
   render() {
     return (
-      <Card title={this.props.currentUser.name}>
-        <Avatar src={this.props.currentUser.picture} />
-      </Card>
+      <React.Fragment>
+        <h1 style={{ textAlign: "center" }}>
+          {`Welcome ${this.props.currentUser.name} `}
+          <Avatar src={this.props.currentUser.picture} />
+        </h1>
+      </React.Fragment>
     );
   }
 }

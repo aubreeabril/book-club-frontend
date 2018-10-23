@@ -38,11 +38,11 @@ class BestsellerList extends React.Component {
       <List itemLayout="vertical">
         {this.state.books.map(book => (
           <List.Item
-            key={book.book_details[0].primary_isbn13}
+            key={book.book_details[0].primary_isbn10}
             actions={[
               <Button
                 onClick={this.handleClick}
-                id={book.book_details[0].primary_isbn13}
+                id={book.book_details[0].primary_isbn10}
               >
                 Save
               </Button>

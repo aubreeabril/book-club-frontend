@@ -1,5 +1,5 @@
 import auth0 from "auth0-js";
-import Auth0Lock from "auth0-lock";
+
 import history from "../history";
 import { AUTH0_CLIENT_ID } from "../keys";
 
