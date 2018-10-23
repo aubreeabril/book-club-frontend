@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createVote } from "../redux/actions";
+import { createVote, removeNominatedBook } from "../redux/actions";
 import { List, Avatar, Button } from "antd";
 
 class ClubBooks extends React.Component {
@@ -13,6 +13,10 @@ class ClubBooks extends React.Component {
     this.setState({
       update: true
     });
+  };
+
+  handleRemoveNom = e => {
+    this.props.removeNominatedBook(e.target.id);
   };
 
   render() {
@@ -29,13 +33,23 @@ class ClubBooks extends React.Component {
                   this.props.currentUser.votes
                     .map(v => v.group_book_id)
                     .includes(book.id) ? (
-                    <Button id={book.id} disabled onClick={this.handleClick}>
-                      Vote
-                    </Button>
+                    <React.Fragment>
+                      <Button id={book.id} disabled onClick={this.handleClick}>
+                        Vote
+                      </Button>
+                      <Button id={book.id} onClick={this.handleRemoveNom}>
+                        Remove
+                      </Button>
+                    </React.Fragment>
                   ) : (
-                    <Button id={book.id} onClick={this.handleClick}>
-                      Vote
-                    </Button>
+                    <React.Fragment>
+                      <Button id={book.id} onClick={this.handleClick}>
+                        Vote
+                      </Button>
+                      <Button id={book.id} onClick={this.handleRemoveNom}>
+                        Remove
+                      </Button>
+                    </React.Fragment>
                   )
                 ]}
               >
@@ -62,5 +76,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { createVote }
+  { createVote, removeNominatedBook }
 )(ClubBooks);

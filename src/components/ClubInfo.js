@@ -222,9 +222,7 @@ class ClubInfo extends React.Component {
         </List>
 
         <ClubMembers club={club} {...this.props} />
-        {/* {!this.props.club.current_book ?  */}
-        <ClubBooks club={club} />
-        {/* : null} */}
+        {!this.props.club.current_book ? <ClubBooks club={club} /> : null}
       </Layout.Content>
     );
   }

@@ -8,14 +8,6 @@ import {
 } from "../redux/actions";
 
 class BestsellerList extends React.Component {
-  state = {
-    books: this.props.bestsellers
-  };
-
-  componentDidMount() {
-    this.props.fetchBestsellers(this.props.list);
-  }
-
   handleClick = e => {
     this.showConfirm();
     // console.log(this.props.currentUser);
@@ -36,13 +28,13 @@ class BestsellerList extends React.Component {
   makeList = () => {
     return (
       <List itemLayout="vertical">
-        {this.state.books.map(book => (
+        {this.props.bestsellers[this.props.list].map(book => (
           <List.Item
-            key={book.book_details[0].primary_isbn10}
+            key={book.book_details[0].primary_isbn13}
             actions={[
               <Button
                 onClick={this.handleClick}
-                id={book.book_details[0].primary_isbn10}
+                id={book.book_details[0].primary_isbn13}
               >
                 Save
               </Button>

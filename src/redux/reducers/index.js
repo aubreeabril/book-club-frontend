@@ -62,7 +62,7 @@ const bookReducer = (state = initialState, action) => {
     case "CLEAR_BESTSELLERS":
       return {
         ...state,
-        bestsellers: []
+        bestsellers: {}
       };
     default:
       return state;

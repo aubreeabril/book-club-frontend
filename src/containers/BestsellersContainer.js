@@ -1,8 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Layout, Collapse } from "antd";
 import BestsellerList from "../components/BestsellerList";
+import { fetchBestsellers } from "../redux/actions";
 
 class BestsellersContainer extends React.Component {
+  componentDidMount() {
+    this.props.fetchBestsellers();
+  }
+
   render() {
     return (
       <Layout.Content style={{ padding: "1em" }}>
@@ -12,9 +18,6 @@ class BestsellersContainer extends React.Component {
           </Collapse.Panel>
           <Collapse.Panel header="Hardcover Nonfiction">
             <BestsellerList list="hardcover-nonfiction" />
-          </Collapse.Panel>
-          <Collapse.Panel header="Mass Market Paperback">
-            <BestsellerList list="mass-market-paperback" />
           </Collapse.Panel>
           <Collapse.Panel header="Trade Fiction Paperback">
             <BestsellerList list="trade-fiction-paperback" />
@@ -31,4 +34,7 @@ class BestsellersContainer extends React.Component {
   }
 }
 
-export default BestsellersContainer;
+export default connect(
+  null,
+  { fetchBestsellers }
+)(BestsellersContainer);

@@ -270,20 +270,35 @@ export function setCurrentGroup(groupId) {
   };
 }
 
-export function fetchBestsellers(list) {
+export function fetchBestsellers() {
   return dispatch => {
-    fetch(
-      `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${NY_TIMES_API_KEY}&list=${list}`
-    )
-      .then(r => r.json())
-      .then(books => dispatch(setBestsellers(list, books.results)));
+    let lists = [
+      "hardcover-fiction",
+      "hardcover-nonfiction",
+      "trade-fiction-paperback",
+      "paperback-nonfiction",
+      "young-adult"
+    ];
+    let obj = {};
+    const promises = lists.map(list =>
+      fetch(
+        `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${NY_TIMES_API_KEY}&list=${list}`
+      )
+        .then(r => r.json())
+        .then(json => (obj[list] = json.results))
+    );
+    Promise.all(promises).then(bestsellersJson =>
+      dispatch(setBestsellers(obj))
+    );
   };
 }
 
-function setBestsellers(list, books) {
+// .then(r => r.json())
+// .then(books => dispatch(setBestsellers(list, books.results)));
+
+function setBestsellers(books) {
   return {
     type: "SET_BESTSELLERS",
-    list,
     books
   };
 }
@@ -330,5 +345,15 @@ export function clearGroupVotes(groupId) {
     })
       .then(r => r.json())
       .then(json => console.log(json));
+  };
+}
+
+export function removeNominatedBook(groupBookId) {
+  return dispatch => {
+    fetch(`http://localhost:3001/group_books/${groupBookId}`, {
+      method: "DELETE"
+    })
+      .then(r => r.json())
+      .then(json => dispatch(fetchGroupBooks()));
   };
 }
