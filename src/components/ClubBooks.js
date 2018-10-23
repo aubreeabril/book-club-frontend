@@ -23,11 +23,12 @@ class ClubBooks extends React.Component {
     return (
       <div>
         <h2>Vote for a book</h2>
-        <List>
+        <List itemLayout="vertical">
           {this.props.groupBooks
             .filter(gb => gb.group_id === this.props.club.id)
             .map(book => (
               <List.Item
+                extra={<img width={100} alt="book cover" src={book.image} />}
                 key={book.id}
                 actions={[
                   this.props.currentUser.votes
@@ -54,10 +55,11 @@ class ClubBooks extends React.Component {
                 ]}
               >
                 <List.Item.Meta
-                  avatar={<Avatar src={book.image} />}
+                  // avatar={<Avatar src={book.image} size="larg" />}
                   title={book.title}
-                  description={`Votes: ${book.votes ? book.votes.length : "0"}`}
+                  description={book.author}
                 />
+                {`Votes: ${book.votes ? book.votes.length : "0"}`}
               </List.Item>
             ))}
         </List>

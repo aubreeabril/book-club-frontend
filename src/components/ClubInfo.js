@@ -172,51 +172,61 @@ class ClubInfo extends React.Component {
             ) : null}
           </List.Item>
           <List.Item
+            extra={
+              club.current_book ? (
+                <img width={100} src={winningBook.image} alt="book cover" />
+              ) : null
+            }
             actions={
               winningBook
                 ? [
-                    <a
-                      href={winningBook.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Buy
-                    </a>
+                    <Button>
+                      <a
+                        href={winningBook.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Buy
+                      </a>
+                    </Button>
                   ]
                 : null
             }
           >
             {!!club.current_book && this.props.groupBooks ? (
               <List.Item.Meta
-                title={!!club.current_book ? winningBook.title : "Current Book"}
-                avatar={<Avatar src={winningBook.image} />}
+                title={!!club.current_book ? winningBook.title : `Next Book`}
+                description={winningBook.author}
               />
             ) : (
-              <Form onSubmit={this.handleSubmit}>
-                <Select
-                  placeholder="nominate a book"
-                  onChange={this.handleChange}
-                  defaultValue="nominate a book"
-                >
-                  {currentUser.user_books
-                    ? currentUser.user_books.map(book => (
-                        <Select.Option
-                          title={book.title}
-                          author={book.author}
-                          image={book.image}
-                          description={book.description}
-                          link={book.link}
-                          isbn={book.isbn}
-                          key={book.isbn}
-                        >
-                          {book.title}
-                        </Select.Option>
-                      ))
-                    : null}
-                </Select>
-                <Button htmlType="submit">Submit</Button>
-                <div id="for-error" />
-              </Form>
+              <React.Fragment>
+                <List.Item.Meta title="Next Book" />
+                <Form onSubmit={this.handleSubmit}>
+                  <Select
+                    placeholder="nominate a book"
+                    onChange={this.handleChange}
+                    defaultValue="nominate a book"
+                  >
+                    {currentUser.user_books
+                      ? currentUser.user_books.map(book => (
+                          <Select.Option
+                            title={book.title}
+                            author={book.author}
+                            image={book.image}
+                            description={book.description}
+                            link={book.link}
+                            isbn={book.isbn}
+                            key={book.isbn}
+                          >
+                            {book.title}
+                          </Select.Option>
+                        ))
+                      : null}
+                  </Select>
+                  <Button htmlType="submit">Submit</Button>
+                  <div id="for-error" />
+                </Form>
+              </React.Fragment>
             )}
           </List.Item>
         </List>

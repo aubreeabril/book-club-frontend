@@ -11,12 +11,15 @@ class ProfileBooks extends React.Component {
   render() {
     return (
       <div style={{ marginTop: "1em" }}>
-        <h3>My Saved Books</h3>
-        <List>
+        <h2>My Saved Books</h2>
+        <List itemLayout="vertical">
           {this.props.currentUser
             ? this.props.currentUser.user_books
               ? this.props.currentUser.user_books.map(book => (
                   <List.Item
+                    extra={
+                      <img width={100} src={book.image} alt={book.title} />
+                    }
                     key={book.isbn}
                     actions={[
                       <React.Fragment>
