@@ -320,7 +320,7 @@ export function clearBestsellers() {
   };
 }
 
-export function clearBookClubDate(groupId) {
+export function clearBookClubDate(groupId, groupBookId) {
   return dispatch => {
     fetch(`${RAILS_API_URL}/groups/${groupId}`, {
       method: "PATCH",
@@ -332,7 +332,25 @@ export function clearBookClubDate(groupId) {
         vote_by: null,
         current_book: null
       })
-    });
+    })
+      .then(r => r.json())
+      .then(json => dispatch(markGroupBookAsRead(groupBookId)));
+  };
+}
+
+function markGroupBookAsRead(groupBookId) {
+  return dispatch => {
+    fetch(`${RAILS_API_URL}/group_books/${groupBookId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        read: true
+      })
+    })
+      .then(r => r.json())
+      .then(json => console.log(json));
   };
 }
 

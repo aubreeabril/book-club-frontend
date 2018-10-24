@@ -29,7 +29,9 @@ class ClubBooks extends React.Component {
           style={{ overflow: "auto", height: "400px" }}
         >
           {this.props.groupBooks
-            .filter(gb => gb.group_id === this.props.club.id)
+            .filter(
+              gb => gb.group_id === this.props.club.id && gb.read === false
+            )
             .map(book => (
               <React.Fragment>
                 <List.Item

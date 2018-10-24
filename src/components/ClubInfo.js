@@ -36,7 +36,10 @@ class ClubInfo extends React.Component {
     // handling meeting date and vote by date
     let now = moment();
     if (now > moment(this.props.club.next_meeting)) {
-      this.props.clearBookClubDate(this.props.club.id);
+      this.props.clearBookClubDate(
+        this.props.club.id,
+        this.props.club.current_book
+      );
     } else if (
       this.props.club.next_meeting
       // moment() > moment(this.props.club.next_meeting)
