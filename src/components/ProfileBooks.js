@@ -13,7 +13,7 @@ class ProfileBooks extends React.Component {
       <div style={{ marginTop: "1em" }}>
         <h2>My Saved Books</h2>
         <List
-          style={{ overflow: "auto", height: "400px" }}
+          style={{ overflow: "auto", height: "200px" }}
           itemLayout="vertical"
           grid={{ xs: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
         >
