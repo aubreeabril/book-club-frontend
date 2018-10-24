@@ -23,7 +23,12 @@ class ProfileBooks extends React.Component {
                   <List.Item
                     style={{ margin: "10px" }}
                     extra={
-                      <img height={150} src={book.image} alt={book.title} />
+                      <img
+                        height={150}
+                        width={100}
+                        src={book.image}
+                        alt={book.title}
+                      />
                     }
                     key={book.isbn}
                     actions={[
