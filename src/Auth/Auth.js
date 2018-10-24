@@ -9,7 +9,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "bookclubapp.auth0.com",
     clientID: AUTH0_CLIENT_ID,
-    redirectUri: "http://localhost:3000/callback",
+    redirectUri: "https://aubrees-book-club.herokuapp.com/callback",
     responseType: "token id_token",
     scope: "openid profile"
   });
