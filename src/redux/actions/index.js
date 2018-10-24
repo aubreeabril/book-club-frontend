@@ -1,10 +1,12 @@
 import { GOOGLE_BOOKS_API_KEY, NY_TIMES_API_KEY } from "../../keys";
+const RAILS_API_URL = "http://localhost:3001";
+const GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+const NYTIMES_API_URL =
+  "https://api.nytimes.com/svc/books/v3/lists.json?api-key=";
 
 export function getBooks(searchValue) {
   return dispatch => {
-    fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${searchValue}&key=${GOOGLE_BOOKS_API_KEY}`
-    )
+    fetch(`${GOOGLE_BOOKS_API_URL}${searchValue}&key=${GOOGLE_BOOKS_API_KEY}`)
       .then(r => r.json())
       // .then(books => console.log(books));
       .then(books => dispatch(setBooks(books)));
@@ -23,7 +25,7 @@ export function makeOrGetUser(profile) {
   //   auth0sub: profile.sub
   // };
   return dispatch => {
-    fetch(`http://localhost:3001/users`, {
+    fetch(`${RAILS_API_URL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -42,7 +44,7 @@ export function makeOrGetUser(profile) {
 
 export function getUsers(auth0sub) {
   return dispatch => {
-    fetch(`http://localhost:3001/users`)
+    fetch(`${RAILS_API_URL}/users`)
       .then(r => r.json())
       .then(users => dispatch(setUser(users, auth0sub)));
   };
@@ -54,7 +56,7 @@ export function setUser(users, auth0sub) {
 
 export function getGroups() {
   return dispatch => {
-    fetch(`http://localhost:3001/groups`)
+    fetch(`${RAILS_API_URL}/groups`)
       .then(r => r.json())
       .then(groups => dispatch(setGroups(groups)));
   };
@@ -66,7 +68,7 @@ function setGroups(groups) {
 
 export function createGroup(name, userId, auth0sub) {
   return dispatch => {
-    fetch(`http://localhost:3001/groups`, {
+    fetch(`${RAILS_API_URL}/groups`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -85,7 +87,7 @@ export function createGroup(name, userId, auth0sub) {
 
 export function createUserGroup(groupId, userId, auth0sub) {
   return dispatch => {
-    fetch(`http://localhost:3001/user_groups`, {
+    fetch(`${RAILS_API_URL}/user_groups`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -102,7 +104,7 @@ export function createUserGroup(groupId, userId, auth0sub) {
 
 export function saveUserBook(userId, book) {
   return dispatch => {
-    fetch(`http://localhost:3001/user_books`, {
+    fetch(`${RAILS_API_URL}/user_books`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -130,7 +132,7 @@ function clearSearchedBooks() {
 
 export function fetchGroupBooks() {
   return dispatch => {
-    fetch(`http://localhost:3001/group_books`)
+    fetch(`${RAILS_API_URL}/group_books`)
       .then(r => r.json())
       .then(groupBooks => {
         // console.log(groupBooks);
@@ -148,7 +150,7 @@ function setGroupBooks(groupBooks) {
 
 export function addGroupBook(groupId, book) {
   return dispatch => {
-    fetch(`http://localhost:3001/group_books`, {
+    fetch(`${RAILS_API_URL}/group_books`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -173,7 +175,7 @@ export function addGroupBook(groupId, book) {
 
 export function setClubBook(groupId, groupBookId) {
   return dispatch => {
-    fetch(`http://localhost:3001/groups/${groupId}`, {
+    fetch(`${RAILS_API_URL}/groups/${groupId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -188,7 +190,7 @@ export function setClubBook(groupId, groupBookId) {
 export function setMeeting(groupId, dateTime, voteBy) {
   let meetingDate = dateTime.toString();
   return dispatch => {
-    fetch(`http://localhost:3001/groups/${groupId}`, {
+    fetch(`${RAILS_API_URL}/groups/${groupId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -204,7 +206,7 @@ export function setMeeting(groupId, dateTime, voteBy) {
 
 export function deleteUserBook(userBookId, auth0sub) {
   return dispatch => {
-    fetch(`http://localhost:3001/user_books/${userBookId}`, {
+    fetch(`${RAILS_API_URL}/user_books/${userBookId}`, {
       method: "DELETE"
     })
       .then(r => r.json())
@@ -214,7 +216,7 @@ export function deleteUserBook(userBookId, auth0sub) {
 
 export function createVote(userId, groupBookId) {
   return dispatch => {
-    fetch(`http://localhost:3001/votes`, {
+    fetch(`${RAILS_API_URL}/votes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -231,7 +233,7 @@ export function createVote(userId, groupBookId) {
 
 export function createMessage(userId, groupId, text) {
   return dispatch => {
-    fetch(`http://localhost:3001/messages`, {
+    fetch(`${RAILS_API_URL}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -249,7 +251,7 @@ export function createMessage(userId, groupId, text) {
 
 export function fetchMessages(groupId) {
   return dispatch => {
-    fetch(`http://localhost:3001/messages`)
+    fetch(`${RAILS_API_URL}/messages`)
       .then(r => r.json())
       .then(messages => dispatch(setChatMessages(messages, groupId)));
   };
@@ -281,9 +283,7 @@ export function fetchBestsellers() {
     ];
     let obj = {};
     const promises = lists.map(list =>
-      fetch(
-        `https://api.nytimes.com/svc/books/v3/lists.json?api-key=${NY_TIMES_API_KEY}&list=${list}`
-      )
+      fetch(`${NYTIMES_API_URL}${NY_TIMES_API_KEY}&list=${list}`)
         .then(r => r.json())
         .then(json => (obj[list] = json.results))
     );
@@ -305,9 +305,7 @@ function setBestsellers(books) {
 
 export function fetchBestsellerFromGoogle(userId, isbn) {
   return dispatch => {
-    fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${isbn}&key=${GOOGLE_BOOKS_API_KEY}`
-    )
+    fetch(`${GOOGLE_BOOKS_API_URL}${isbn}&key=${GOOGLE_BOOKS_API_KEY}`)
       .then(r => r.json())
       .then(books => {
         console.log(books.items[0]);
@@ -324,7 +322,7 @@ export function clearBestsellers() {
 
 export function clearBookClubDate(groupId) {
   return dispatch => {
-    fetch(`http://localhost:3001/groups/${groupId}`, {
+    fetch(`${RAILS_API_URL}/groups/${groupId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json"
@@ -340,7 +338,7 @@ export function clearBookClubDate(groupId) {
 
 export function clearGroupVotes(groupId) {
   return dispatch => {
-    fetch(`http://localhost:3001/groups/${groupId}/votes`, {
+    fetch(`${RAILS_API_URL}/groups/${groupId}/votes`, {
       method: "DELETE"
     })
       .then(r => r.json())
@@ -350,7 +348,7 @@ export function clearGroupVotes(groupId) {
 
 export function removeNominatedBook(groupBookId) {
   return dispatch => {
-    fetch(`http://localhost:3001/group_books/${groupBookId}`, {
+    fetch(`${RAILS_API_URL}/group_books/${groupBookId}`, {
       method: "DELETE"
     })
       .then(r => r.json())

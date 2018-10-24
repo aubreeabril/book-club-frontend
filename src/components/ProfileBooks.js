@@ -12,13 +12,18 @@ class ProfileBooks extends React.Component {
     return (
       <div style={{ marginTop: "1em" }}>
         <h2>My Saved Books</h2>
-        <List itemLayout="vertical">
+        <List
+          style={{ overflow: "auto", height: "400px" }}
+          itemLayout="vertical"
+          grid={{ xs: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
+        >
           {this.props.currentUser
             ? this.props.currentUser.user_books
               ? this.props.currentUser.user_books.map(book => (
                   <List.Item
+                    style={{ margin: "10px" }}
                     extra={
-                      <img width={100} src={book.image} alt={book.title} />
+                      <img height={150} src={book.image} alt={book.title} />
                     }
                     key={book.isbn}
                     actions={[
