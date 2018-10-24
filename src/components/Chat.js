@@ -15,8 +15,7 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    this.scrollToBottom();
-
+    // this.scrollToBottom();
     // myInterval = setInterval(() => {
     //   this.props.fetchMessages();
     // }, 5000);
