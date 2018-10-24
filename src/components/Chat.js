@@ -102,7 +102,15 @@ class Chat extends React.Component {
             <div ref={el => (this.messagesEnd = el)} />
           </React.Fragment>
         ) : (
-          "Loading ..."
+          <React.Fragment>
+            <h4>Loading ...</h4>
+            <Input
+              placeholder="type something"
+              value={this.state.inputValue}
+              onChange={this.handleChange}
+              onPressEnter={this.handleEnter}
+            />
+          </React.Fragment>
         )}
       </div>
     );
