@@ -16,7 +16,7 @@ class BooksContainer extends React.Component {
   }
 
   render() {
-    let height = window.innerHeight;
+    let height = window.innerHeight - 50;
 
     return (
       <Content

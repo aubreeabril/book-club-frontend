@@ -15,7 +15,7 @@ class Home extends React.Component {
   }
 
   render() {
-    let height = window.innerHeight;
+    let height = window.innerHeight - 50;
 
     if (this.props.auth.isAuthenticated()) {
       this.props.auth.getProfile();

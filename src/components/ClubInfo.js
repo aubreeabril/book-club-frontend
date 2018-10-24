@@ -10,16 +10,7 @@ import {
   clearBookClubDate,
   clearGroupVotes
 } from "../redux/actions";
-import {
-  Layout,
-  DatePicker,
-  Form,
-  Select,
-  Button,
-  Alert,
-  List,
-  Avatar
-} from "antd";
+import { Layout, DatePicker, Form, Select, Button, Alert, List } from "antd";
 import ClubMembers from "./ClubMembers";
 import ClubBooks from "./ClubBooks";
 // import { ActionCable } from "react-actioncable-provider";
@@ -45,10 +36,8 @@ class ClubInfo extends React.Component {
       // moment() > moment(this.props.club.next_meeting)
     ) {
       this.setState({
-        meeting: moment(this.props.club.next_meeting).format(
-          "dddd, MMM DD, hh:mm a"
-        ),
-        vote_by: moment(this.props.club.vote_by).format("dddd, MMM DD, hh:mm a")
+        meeting: moment(this.props.club.next_meeting).format("MMM DD, hh:mm a"),
+        vote_by: moment(this.props.club.vote_by).format("MMM DD, hh:mm a")
       });
     }
     // is there a winning book?
@@ -152,17 +141,18 @@ class ClubInfo extends React.Component {
 
     return (
       <Layout.Content>
-        <List itemLayout="vertical">
-          <List.Item>
+        <List itemLayout="vertical" grid={{ xs: 2 }}>
+          <List.Item style={{ margin: "5px" }}>
             <List.Item.Meta
               title="Next Meeting"
               description={
                 !!this.state.meeting ? (
-                  this.state.meeting
+                  <strong>{this.state.meeting}</strong>
                 ) : (
                   <DatePicker
+                    style={{ width: "150px" }}
                     disabledDate={this.disabledDate}
-                    placeholder="pick date and time"
+                    placeholder="Date"
                     showTime={{ format: "hh:mm" }}
                     format="YYYY-MM-DD hh:mm"
                     onOk={this.handleOk}
@@ -170,11 +160,9 @@ class ClubInfo extends React.Component {
                 )
               }
             />
-            {!club.current_book && this.state.vote_by ? (
-              <p>Vote or nominate a book by {this.state.vote_by}!</p>
-            ) : null}
           </List.Item>
           <List.Item
+            style={{ margin: "5px" }}
             extra={
               club.current_book ? (
                 <img width={100} src={winningBook.image} alt="book cover" />
@@ -203,37 +191,46 @@ class ClubInfo extends React.Component {
               />
             ) : (
               <React.Fragment>
-                <List.Item.Meta title="Next Book" />
-                <Form onSubmit={this.handleSubmit}>
-                  <Select
-                    placeholder="nominate a book"
-                    onChange={this.handleChange}
-                    defaultValue="nominate a book"
-                  >
-                    {currentUser.user_books
-                      ? currentUser.user_books.map(book => (
-                          <Select.Option
-                            title={book.title}
-                            author={book.author}
-                            image={book.image}
-                            description={book.description}
-                            link={book.link}
-                            isbn={book.isbn}
-                            key={book.isbn}
-                          >
-                            {book.title}
-                          </Select.Option>
-                        ))
-                      : null}
-                  </Select>
-                  <Button htmlType="submit">Submit</Button>
-                  <div id="for-error" />
-                </Form>
+                <List.Item.Meta
+                  title="Next Book"
+                  description={
+                    <Form onSubmit={this.handleSubmit}>
+                      <Select
+                        placeholder="nominate a book"
+                        onChange={this.handleChange}
+                        defaultValue="nominate a book"
+                      >
+                        {currentUser.user_books
+                          ? currentUser.user_books.map(book => (
+                              <Select.Option
+                                title={book.title}
+                                author={book.author}
+                                image={book.image}
+                                description={book.description}
+                                link={book.link}
+                                isbn={book.isbn}
+                                key={book.isbn}
+                              >
+                                {book.title}
+                              </Select.Option>
+                            ))
+                          : null}
+                      </Select>
+                      <Button htmlType="submit">Submit</Button>
+                      <div id="for-error" />
+                    </Form>
+                  }
+                />
               </React.Fragment>
             )}
           </List.Item>
         </List>
-
+        {!club.current_book && this.state.vote_by ? (
+          <Alert
+            type="success"
+            message={`Vote or nominate a book by ${this.state.vote_by}!`}
+          />
+        ) : null}
         <ClubMembers club={club} {...this.props} />
         {!this.props.club.current_book ? <ClubBooks club={club} /> : null}
       </Layout.Content>
