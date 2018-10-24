@@ -1,5 +1,5 @@
 import { GOOGLE_BOOKS_API_KEY, NY_TIMES_API_KEY } from "../../keys";
-const RAILS_API_URL = "http://localhost:3001";
+const RAILS_API_URL = "https://book-club-api.herokuapp.com";
 const GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 const NYTIMES_API_URL =
   "https://api.nytimes.com/svc/books/v3/lists.json?api-key=";
