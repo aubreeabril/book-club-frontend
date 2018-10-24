@@ -3,8 +3,8 @@ const RAILS_API_URL = "https://book-club-api.herokuapp.com";
 const GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes?q=";
 const NYTIMES_API_URL =
   "https://api.nytimes.com/svc/books/v3/lists.json?api-key=";
-const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
-const NY_TIMES_API_KEY = process.env.NY_TIMES_API_KEY;
+const GOOGLE_BOOKS_API_KEY = process.env.REACT_APP_GOOGLE_BOOKS_API_KEY;
+const NY_TIMES_API_KEY = process.env.REACT_APP_NY_TIMES_API_KEY;
 
 export function getBooks(searchValue) {
   return dispatch => {
