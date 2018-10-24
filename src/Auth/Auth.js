@@ -3,7 +3,9 @@ import auth0 from "auth0-js";
 import history from "../history";
 // import { AUTH0_CLIENT_ID } from "../keys";
 
-const AUTH0_CLIENT_ID = process.env.AUTH0_CLIENT_ID;
+const AUTH0_CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID;
+
+console.log(AUTH0_CLIENT_ID);
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
