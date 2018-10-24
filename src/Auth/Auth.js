@@ -14,8 +14,6 @@ export default class Auth {
     scope: "openid profile"
   });
 
-  // lock = new Auth0Lock("YOUR_CLIENT_ID", "YOUR_AUTH0_DOMAIN");
-
   constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
