@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { makeOrGetUser, getGroups } from "../redux/actions";
 import { Icon } from "antd";
+import group from "../images/group.png";
 
 const textStyle = {
   textAlign: "center",
@@ -36,10 +37,10 @@ class Home extends React.Component {
               paddingTop: "7em"
             }}
           >
-            ABC
+            Aubree's Book Club
           </h1>
-          <h1>
-            <img src="../images/group.png" /> Make or join a club
+          <h1 style={textStyle}>
+            <img src={group} /> Make or join a club
           </h1>
           <h1 style={textStyle}>
             <Icon type="calendar" theme="outlined" color="green" /> Set a date
