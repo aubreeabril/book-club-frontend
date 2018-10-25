@@ -12,19 +12,11 @@ class ProfileClubs extends React.Component {
           <List>
             {this.props.currentUser.groups.map(group => (
               <List.Item key={group.id}>
-                <List.Item.Meta
-                  title={
-                    <Link to={`/club/${group.id}`} key={group.id}>
-                      {group.name}
-                    </Link>
-                  }
-                  // description={
-                  //   group.current_book
-                  //     ? group.group_books.find(gb => gb.id === current_book)
-                  //         .title
-                  //     : null
-                  // }
-                />
+                <h3>
+                  <Link to={`/club/${group.id}`} key={group.id}>
+                    {group.name}
+                  </Link>
+                </h3>
               </List.Item>
             ))}
           </List>

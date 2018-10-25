@@ -15,7 +15,7 @@ class ProfileBooks extends React.Component {
         <List
           style={{ overflow: "auto", height: "500px" }}
           itemLayout="vertical"
-          grid={{ xs: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
+          // grid={{ xs: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
         >
           {this.props.currentUser
             ? this.props.currentUser.user_books
