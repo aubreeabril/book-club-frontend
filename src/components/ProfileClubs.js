@@ -18,12 +18,12 @@ class ProfileClubs extends React.Component {
                       {group.name}
                     </Link>
                   }
-                  description={
-                    group.current_book
-                      ? group.group_books.find(gb => gb.id === current_book)
-                          .title
-                      : null
-                  }
+                  // description={
+                  //   group.current_book
+                  //     ? group.group_books.find(gb => gb.id === current_book)
+                  //         .title
+                  //     : null
+                  // }
                 />
               </List.Item>
             ))}
