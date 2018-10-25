@@ -14,7 +14,7 @@ class DashboardContainer extends React.Component {
     let height = window.innerHeight - 60;
     return (
       <Layout
-        style={{ minHeight: height, backgroundColor: "rgb(238, 240, 243)" }}
+        style={{ minHeight: height, backgroundColor: "rgb(220, 231, 247)" }}
       >
         {this.props.auth.userProfile ? (
           <React.Fragment>
