@@ -141,7 +141,7 @@ class ClubInfo extends React.Component {
 
     return (
       <Layout.Content>
-        <List itemLayout="vertical" grid={{ xs: 2 }}>
+        <List itemLayout="vertical">
           <List.Item style={{ margin: "5px" }}>
             <List.Item.Meta
               title="Next Meeting"
