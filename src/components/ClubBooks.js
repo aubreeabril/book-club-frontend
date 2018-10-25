@@ -103,7 +103,6 @@ class ClubBooks extends React.Component {
                         title={book.title}
                         description={book.author}
                       />
-                      {`Votes: ${book.votes ? book.votes.length : "0"}`}
                     </List.Item>
                     <Divider />
                   </React.Fragment>
