@@ -150,7 +150,7 @@ class ClubInfo extends React.Component {
                   <strong>{this.state.meeting}</strong>
                 ) : (
                   <DatePicker
-                    style={{ width: "150px" }}
+                    style={{ maxWidth: "150px" }}
                     disabledDate={this.disabledDate}
                     placeholder="Date"
                     showTime={{ format: "hh:mm" }}
