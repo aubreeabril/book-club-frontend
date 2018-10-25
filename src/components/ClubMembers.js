@@ -5,7 +5,7 @@ const ClubMembers = ({ club, currentUser }) => {
   return (
     <div>
       <h2>Members</h2>
-      <List grid={{ gutter: 16, xs: 3, sm: 5, md: 6, lg: 6 }}>
+      <List grid={{ gutter: 16, xs: 3, sm: 3, md: 3, lg: 3 }}>
         {club.users.filter(u => u.id !== currentUser.id).map(user => (
           <List.Item key={user.id}>
             <List.Item.Meta
