@@ -141,7 +141,7 @@ class ClubInfo extends React.Component {
 
     return (
       <Layout.Content>
-        <List itemLayout="vertical">
+        <List itemLayout="vertical" style={{ paddingTop: "1em" }}>
           <List.Item style={{ margin: "5px" }}>
             <List.Item.Meta
               title="Next Meeting"
@@ -223,14 +223,15 @@ class ClubInfo extends React.Component {
                 />
               </React.Fragment>
             )}
+            {!club.current_book && this.state.vote_by ? (
+              <Alert
+                type="success"
+                message={`Vote or nominate a book by ${this.state.vote_by}!`}
+              />
+            ) : null}
           </List.Item>
         </List>
-        {!club.current_book && this.state.vote_by ? (
-          <Alert
-            type="success"
-            message={`Vote or nominate a book by ${this.state.vote_by}!`}
-          />
-        ) : null}
+
         <ClubMembers club={club} {...this.props} />
         {!this.props.club.current_book ? <ClubBooks club={club} /> : null}
       </Layout.Content>
