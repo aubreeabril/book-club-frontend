@@ -10,10 +10,10 @@ class ProfileBooks extends React.Component {
 
   render() {
     return (
-      <div style={{ marginTop: "1em", marginLeft: "1em", overflow: "hidden" }}>
-        <h2>My Saved Books</h2>
+      <div style={{ marginTop: "1em", overflow: "hidden" }}>
+        <h2 style={{ marginLeft: "1em" }}>My Saved Books</h2>
         <List
-          style={{ overflow: "auto", height: "300px" }}
+          style={{ overflow: "auto", height: "500px" }}
           itemLayout="vertical"
           grid={{ xs: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
         >
