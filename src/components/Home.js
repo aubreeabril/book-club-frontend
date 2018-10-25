@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { makeOrGetUser, getGroups } from "../redux/actions";
-import { Icon } from "antd";
+import { Icon, Image } from "antd";
 
 const textStyle = {
   textAlign: "center",
@@ -36,7 +36,7 @@ class Home extends React.Component {
               paddingTop: "7em"
             }}
           >
-            <Icon type="team" theme="outlined" /> Make or join a club
+            <Image src="../images/group.png" /> Make or join a club
           </h1>
           <h1 style={textStyle}>
             <Icon type="calendar" theme="outlined" color="green" /> Set a date
@@ -49,6 +49,7 @@ class Home extends React.Component {
     );
   }
 }
+// <Icon type="team" theme="outlined" /> Make or join a club
 
 export default connect(
   null,
