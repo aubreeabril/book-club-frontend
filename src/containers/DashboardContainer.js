@@ -11,7 +11,7 @@ class DashboardContainer extends React.Component {
   }
 
   render() {
-    let height = window.innerHeight - 100;
+    let height = window.innerHeight - 60;
     return (
       <Layout
         style={{ minHeight: height, backgroundColor: "rgb(238, 240, 243)" }}

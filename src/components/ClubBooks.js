@@ -27,7 +27,7 @@ class ClubBooks extends React.Component {
             <List
               itemLayout="vertical"
               grid={{ xs: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
-              style={{ overflow: "auto", height: "200px" }}
+              style={{ overflow: "auto", height: "220px" }}
             >
               {this.props.groupBooks
                 .filter(

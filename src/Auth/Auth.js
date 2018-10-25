@@ -5,8 +5,6 @@ import history from "../history";
 
 const AUTH0_CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
-console.log(AUTH0_CLIENT_ID);
-
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "bookclubapp.auth0.com",
