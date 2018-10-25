@@ -14,20 +14,20 @@ class Chat extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.scrollToBottom();
-  //   myInterval = setInterval(() => {
-  //     this.props.fetchMessages();
-  //   }, 3000);
-  // }
-  //
+  componentDidMount() {
+    this.scrollToBottom();
+    // myInterval = setInterval(() => {
+    //   this.props.fetchMessages();
+    // }, 3000);
+  }
+
   // componentWillUnmount() {
   //   clearInterval(myInterval);
   // }
-  //
-  // componentDidUpdate() {
-  //   this.scrollToBottom();
-  // }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
 
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });

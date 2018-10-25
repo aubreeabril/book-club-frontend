@@ -141,6 +141,7 @@ class ClubInfo extends React.Component {
 
     return (
       <Layout.Content>
+        <ClubMembers club={club} {...this.props} />
         <List itemLayout="vertical" style={{ paddingTop: "1em" }}>
           <List.Item style={{ margin: "5px" }}>
             <List.Item.Meta
@@ -232,7 +233,6 @@ class ClubInfo extends React.Component {
           </List.Item>
         </List>
 
-        <ClubMembers club={club} {...this.props} />
         {!this.props.club.current_book ? <ClubBooks club={club} /> : null}
       </Layout.Content>
     );

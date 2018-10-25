@@ -36,9 +36,6 @@ class Home extends React.Component {
               paddingTop: "7em"
             }}
           >
-            Aubree's Book Club
-          </h1>
-          <h1 style={textStyle}>
             <Icon type="team" theme="outlined" /> Make or join a club
           </h1>
           <h1 style={textStyle}>
