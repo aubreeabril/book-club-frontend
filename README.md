@@ -11,12 +11,13 @@ Book Club is an application for managing book clubs.
 + Nominate and vote on books
 
 [Full demo](https://youtu.be/bkCJCK8nF2Y)
+[Try it live](https://aubrees-book-club.herokuapp.com/)
 
 ## Built With
 
-[React](https://github.com/facebook/react)
-[Redux](https://github.com/reduxjs/redux)
-[Ant Design](https://github.com/ant-design/ant-design)
-[New York Times Bestsellers API](https://developer.nytimes.com/)
-[Google Books API](https://developers.google.com/books/)
++ [React](https://github.com/facebook/react)
++ [Redux](https://github.com/reduxjs/redux)
++ [Ant Design](https://github.com/ant-design/ant-design)
++ [New York Times Bestsellers API](https://developer.nytimes.com/)
++ [Google Books API](https://developers.google.com/books/)
 
