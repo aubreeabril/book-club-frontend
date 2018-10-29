@@ -10,9 +10,7 @@ Book Club is an application for managing book clubs.
 + Select book club date
 + Nominate and vote on books
 
-[Full demo](https://youtu.be/bkCJCK8nF2Y)
-
-[Try it live](https://aubrees-book-club.herokuapp.com/)
+[Full demo](https://youtu.be/bkCJCK8nF2Y)| [Try it live](https://aubrees-book-club.herokuapp.com/)
 
 ## Built With
 
