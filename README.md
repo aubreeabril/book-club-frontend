@@ -4,11 +4,11 @@ Book Club is an application for managing book clubs.
 
 ## Features
 
-+Login or register using Auth0
-+Search for and save books
-+Make and join book clubs
-+Select book club date
-+Nominate and vote on books
++ Login or register using Auth0
++ Search for and save books
++ Make and join book clubs
++ Select book club date
++ Nominate and vote on books
 
 [Full demo](https://youtu.be/bkCJCK8nF2Y)
 
