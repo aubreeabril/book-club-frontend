@@ -4,7 +4,23 @@ Book Club is an application for managing book clubs.
 
 ## Features
 
-Users can sign up or login, search for and save books or browse bestsellers and join and create book clubs. Once in a book club, users can choose the date of the next meeting and nominate and vote on the next book to read.
+Users can:
+
+- Login or register using Auth0
+- Search for and save books
+- Make and join book clubs
+- Select book club date
+- Nominate and vote on books
+
+[Full demo](https://youtu.be/bkCJCK8nF2Y) | [Try it live](https://aubrees-book-club.herokuapp.com/)
+
+## Built With
+
+- [React](https://github.com/facebook/react)
+- [Redux](https://github.com/reduxjs/redux)
+- [Ant Design](https://github.com/ant-design/ant-design)
+- [New York Times Bestsellers API](https://developer.nytimes.com/)
+- [Google Books API](https://developers.google.com/books/)
 
 ## Setup
 
