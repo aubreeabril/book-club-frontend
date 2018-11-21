@@ -13,7 +13,7 @@ configure({ adapter: new Adapter() });
 describe("<Home />", () => {
   describe("render()", () => {
     test("renders the component", () => {
-      const wrapper = shallow(<Home />);
+      const wrapper = shallow("<Home />");
       const component = wrapper.dive();
 
       expect(toJson(component)).toMatchSnapshot();

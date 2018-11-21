@@ -23,8 +23,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "jest",
     "test:watch": "jest --watch",
     "eject": "react-scripts eject"
@@ -39,15 +39,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
-    "jest": "^23.6.0"
-  },
-  "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>__tests__/setup/setupEnzyme.js",
-    "testPathIgnorePatterns": [
-      "<rootDir>/__tests__/setup/"
-    ]
+    "jest": "^23.6.0",
+    "babel-jest": "^23.6.0"
   }
 }

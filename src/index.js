@@ -14,6 +14,7 @@ import DashboardContainer from "./containers/DashboardContainer";
 import ClubContainer from "./containers/ClubContainer";
 import Home from "./components/Home";
 import { ActionCableProvider } from "react-actioncable-provider";
+import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 
 const auth = new Auth();
 
